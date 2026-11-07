@@ -1,281 +1,318 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>NELOY AI - Create Account</title>
+<title>NELOY AI - Create Account</title>
+<meta name="description" content="Create your NELOY AI account.">
 
-    <meta name="description" content="Create your NELOY AI account.">
-
-    <!-- Main Website CSS -->
-    <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body class="auth-page register-page">
 
-    <!-- Animated Background -->
-    <div class="background-effects">
-        <div class="gradient-orb orb-one"></div>
-        <div class="gradient-orb orb-two"></div>
-        <div class="gradient-orb orb-three"></div>
-        <div class="background-grid"></div>
+<div class="background-effects">
+    <div class="gradient-orb orb-one"></div>
+    <div class="gradient-orb orb-two"></div>
+    <div class="gradient-orb orb-three"></div>
+    <div class="background-grid"></div>
+</div>
+
+<main class="auth-container">
+<section class="auth-card">
+
+    <div class="auth-logo">
+        <div class="logo-icon"><span>N</span></div>
+        <h1>NELOY<span>AI</span></h1>
+        <p>Your Intelligent AI Assistant</p>
     </div>
 
-    <!-- Registration Container -->
-    <main class="auth-container">
+    <div class="auth-heading">
+        <span class="welcome-label">WELCOME TO NELOY AI</span>
+        <h2>Create Your Account</h2>
+        <p>Join us and experience the power of AI.</p>
+    </div>
 
-        <section class="auth-card">
+    <form id="registerForm">
 
-            <!-- Logo -->
-            <div class="auth-logo">
-                <div class="logo-icon">
-                    <span>N</span>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="firstName">First Name *</label>
+                <div class="input-wrapper">
+                    <span class="input-icon">👤</span>
+                    <input type="text" id="firstName"
+                    placeholder="First name" autocomplete="given-name" required>
                 </div>
-
-                <h1>NELOY<span>AI</span></h1>
-                <p>Your Intelligent AI Assistant</p>
             </div>
 
-            <!-- Heading -->
-            <div class="auth-heading">
-                <span class="welcome-label">
-                    WELCOME TO NELOY AI
-                </span>
+            <div class="form-group">
+                <label for="lastName">Last Name *</label>
+                <div class="input-wrapper">
+                    <span class="input-icon">👤</span>
+                    <input type="text" id="lastName"
+                    placeholder="Last name" autocomplete="family-name" required>
+                </div>
+            </div>
+        </div>
 
-                <h2>Create Your Account</h2>
+        <div class="form-group">
+            <label for="username">Username *</label>
+            <div class="input-wrapper">
+                <span class="input-icon">🪪</span>
+                <input type="text" id="username"
+                placeholder="Choose a username"
+                minlength="3" maxlength="30" required>
+            </div>
+        </div>
 
-                <p>
-                    Join us and experience the power of AI.
-                </p>
+        <div class="form-group">
+            <label for="email">Email Address *</label>
+            <div class="input-wrapper">
+                <span class="input-icon">✉️</span>
+                <input type="email" id="email"
+                placeholder="Enter your email"
+                autocomplete="email" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Phone Number *</label>
+            <div class="input-wrapper">
+                <span class="input-icon">📱</span>
+                <input type="tel" id="phone"
+                placeholder="+8801XXXXXXXXX"
+                autocomplete="tel" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="country">Country *</label>
+            <div class="input-wrapper">
+                <span class="input-icon">🌍</span>
+                <select id="country" required>
+                    <option value="">Select your country</option>
+                    <option value="Bangladesh">Bangladesh</option>
+                    <option value="India">India</option>
+                    <option value="Pakistan">Pakistan</option>
+                    <option value="Nepal">Nepal</option>
+                    <option value="United States">United States</option>
+                    <option value="United Kingdom">United Kingdom</option>
+                    <option value="Saudi Arabia">Saudi Arabia</option>
+                    <option value="United Arab Emirates">United Arab Emirates</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-row">
+
+            <div class="form-group">
+                <label for="dob">Date of Birth *</label>
+                <div class="input-wrapper">
+                    <span class="input-icon">📅</span>
+                    <input type="date" id="dob" required>
+                </div>
             </div>
 
-            <!-- Registration Form -->
-            <form id="registerForm" autocomplete="on">
-
-                <!-- First Name & Last Name -->
-                <div class="form-row">
-
-                    <div class="form-group">
-                        <label for="firstName">
-                            First Name
-                        </label>
-
-                        <div class="input-wrapper">
-                            <span class="input-icon">👤</span>
-
-                            <input
-                                type="text"
-                                id="firstName"
-                                name="firstName"
-                                placeholder="First name"
-                                autocomplete="given-name"
-                                required
-                            >
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="lastName">
-                            Last Name
-                        </label>
-
-                        <div class="input-wrapper">
-                            <span class="input-icon">👤</span>
-
-                            <input
-                                type="text"
-                                id="lastName"
-                                name="lastName"
-                                placeholder="Last name"
-                                autocomplete="family-name"
-                                required
-                            >
-                        </div>
-                    </div>
-
+            <div class="form-group">
+                <label for="gender">Gender *</label>
+                <div class="input-wrapper">
+                    <span class="input-icon">⚧</span>
+                    <select id="gender" required>
+                        <option value="">Select</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                        <option value="Prefer not to say">Prefer not to say</option>
+                    </select>
                 </div>
+            </div>
 
-                <!-- Email -->
-                <div class="form-group">
+        </div>
 
-                    <label for="email">
-                        Email Address
-                    </label>
+        <div class="form-group">
+            <label for="password">Password *</label>
+            <div class="input-wrapper">
+                <span class="input-icon">🔒</span>
+                <input type="password" id="password"
+                placeholder="Create a strong password"
+                autocomplete="new-password" required>
+                <button type="button" class="password-toggle"
+                data-target="password">SHOW</button>
+            </div>
+        </div>
 
-                    <div class="input-wrapper">
-                        <span class="input-icon">✉️</span>
+        <div class="password-requirements">
+            <p>Password must contain:</p>
+            <ul>
+                <li id="req-length">At least 8 characters</li>
+                <li id="req-uppercase">One uppercase letter</li>
+                <li id="req-lowercase">One lowercase letter</li>
+                <li id="req-number">One number</li>
+                <li id="req-special">One special character</li>
+            </ul>
+        </div>
 
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            placeholder="Enter your email"
-                            autocomplete="email"
-                            required
-                        >
-                    </div>
+        <div class="form-group">
+            <label for="confirmPassword">Confirm Password *</label>
+            <div class="input-wrapper">
+                <span class="input-icon">🔐</span>
+                <input type="password" id="confirmPassword"
+                placeholder="Confirm your password"
+                autocomplete="new-password" required>
+                <button type="button" class="password-toggle"
+                data-target="confirmPassword">SHOW</button>
+            </div>
+        </div>
 
-                </div>
-
-                <!-- Password -->
-                <div class="form-group">
-
-                    <label for="password">
-                        Password
-                    </label>
-
-                    <div class="input-wrapper">
-                        <span class="input-icon">🔒</span>
-
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            placeholder="Create a password"
-                            autocomplete="new-password"
-                            minlength="8"
-                            required
-                        >
-
-                        <button
-                            type="button"
-                            class="password-toggle"
-                            data-target="password"
-                            aria-label="Show password"
-                        >
-                            SHOW
-                        </button>
-                    </div>
-
-                </div>
-
-                <!-- Password Requirements -->
-                <div class="password-requirements">
-
-                    <p>Password must contain:</p>
-
-                    <ul>
-                        <li id="req-length">
-                            At least 8 characters
-                        </li>
-
-                        <li id="req-uppercase">
-                            One uppercase letter
-                        </li>
-
-                        <li id="req-lowercase">
-                            One lowercase letter
-                        </li>
-
-                        <li id="req-number">
-                            One number
-                        </li>
-
-                        <li id="req-special">
-                            One special character
-                        </li>
-                    </ul>
-
-                </div>
-
-                <!-- Confirm Password -->
-                <div class="form-group">
-
-                    <label for="confirmPassword">
-                        Confirm Password
-                    </label>
-
-                    <div class="input-wrapper">
-                        <span class="input-icon">🔐</span>
-
-                        <input
-                            type="password"
-                            id="confirmPassword"
-                            name="confirmPassword"
-                            placeholder="Confirm your password"
-                            autocomplete="new-password"
-                            required
-                        >
-
-                        <button
-                            type="button"
-                            class="password-toggle"
-                            data-target="confirmPassword"
-                            aria-label="Show confirm password"
-                        >
-                            SHOW
-                        </button>
-                    </div>
-
-                </div>
-
-                <!-- Terms -->
-                <div class="terms-group">
-
-                    <label class="checkbox-label">
-
-                        <input
-                            type="checkbox"
-                            id="terms"
-                            required
-                        >
-
-                        <span>
-                            I agree to the
-                            <a href="#" class="terms-link">
-                                Terms & Conditions
-                            </a>
-                        </span>
-
-                    </label>
-
-                </div>
-
-                <!-- Error / Success Message -->
-                <div
-                    id="registerMessage"
-                    class="form-message"
-                    role="status"
-                    aria-live="polite"
-                ></div>
-
-                <!-- Submit -->
-                <button
-                    type="submit"
-                    id="registerButton"
-                    class="primary-button"
-                >
-                    <span>Create Account</span>
-                    <span class="button-arrow">→</span>
-                </button>
-
-            </form>
-
-            <!-- Login Link -->
-            <div class="auth-footer">
-
-                <p>
-                    Already have an account?
-
-                    <a href="login.html">
-                        Sign In
+        <div class="terms-group">
+            <label class="checkbox-label">
+                <input type="checkbox" id="terms" required>
+                <span>
+                    I agree to the
+                    <a href="terms.html" class="terms-link">
+                        Terms & Conditions
                     </a>
-                </p>
+                    and Privacy Policy.
+                </span>
+            </label>
+        </div>
 
-            </div>
+        <div id="registerMessage"
+        class="form-message" role="status" aria-live="polite"></div>
 
-            <!-- Footer -->
-            <div class="auth-bottom">
-                <span>POWERED BY NELOY AI</span>
-            </div>
+        <button type="submit" id="registerButton"
+        class="primary-button">
+            <span>Create Account</span>
+            <span class="button-arrow">→</span>
+        </button>
 
-        </section>
+    </form>
 
-    </main>
+    <div class="auth-footer">
+        <p>
+            Already have an account?
+            <a href="login.html">Sign In</a>
+        </p>
+    </div>
 
-    <!-- Registration JavaScript -->
-    <script src="register.js"></script>
+    <div class="auth-bottom">
+        <span>POWERED BY NELOY AI</span>
+    </div>
+
+</section>
+</main>
+
+<script>
+const form = document.getElementById("registerForm");
+const message = document.getElementById("registerMessage");
+const button = document.getElementById("registerButton");
+const password = document.getElementById("password");
+
+const rules = {
+    "req-length": v => v.length >= 8,
+    "req-uppercase": v => /[A-Z]/.test(v),
+    "req-lowercase": v => /[a-z]/.test(v),
+    "req-number": v => /[0-9]/.test(v),
+    "req-special": v => /[^A-Za-z0-9]/.test(v)
+};
+
+password.addEventListener("input", () => {
+    Object.entries(rules).forEach(([id, check]) => {
+        document.getElementById(id)
+        .classList.toggle("valid", check(password.value));
+    });
+});
+
+document.querySelectorAll(".password-toggle").forEach(btn => {
+    btn.addEventListener("click", () => {
+        const input = document.getElementById(btn.dataset.target);
+        input.type = input.type === "password" ? "text" : "password";
+        btn.textContent = input.type === "password" ? "SHOW" : "HIDE";
+    });
+});
+
+function showMessage(text, type) {
+    message.textContent = text;
+    message.className = "form-message " + type;
+}
+
+form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const data = {
+        firstName: document.getElementById("firstName").value.trim(),
+        lastName: document.getElementById("lastName").value.trim(),
+        username: document.getElementById("username").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        phone: document.getElementById("phone").value.trim(),
+        country: document.getElementById("country").value,
+        dob: document.getElementById("dob").value,
+        gender: document.getElementById("gender").value,
+        password: password.value,
+        confirmPassword: document.getElementById("confirmPassword").value
+    };
+
+    if (!Object.values(rules).every(check => check(data.password))) {
+        showMessage("Password does not meet all requirements.", "error");
+        return;
+    }
+
+    if (data.password !== data.confirmPassword) {
+        showMessage("Passwords do not match.", "error");
+        return;
+    }
+
+    if (!/^\+?[0-9\s()-]{7,20}$/.test(data.phone)) {
+        showMessage("Please enter a valid phone number.", "error");
+        return;
+    }
+
+    if (data.dob >= new Date().toISOString().slice(0, 10)) {
+        showMessage("Please enter a valid date of birth.", "error");
+        return;
+    }
+
+    button.disabled = true;
+    button.querySelector("span").textContent = "Creating Account...";
+
+    try {
+        const response = await fetch("/api/auth/register", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (!response.ok || !result.success) {
+            throw new Error(result.message || "Registration failed.");
+        }
+
+        showMessage(
+            "Account created successfully! Redirecting to Login...",
+            "success"
+        );
+
+        form.querySelectorAll("input, select, button")
+            .forEach(el => el.disabled = true);
+
+        setTimeout(() => {
+            window.location.replace("login.html");
+        }, 1500);
+
+    } catch (error) {
+        showMessage(error.message || "Server connection failed.", "error");
+        button.disabled = false;
+        button.querySelector("span").textContent = "Create Account";
+    }
+});
+
+// Prevent future birth dates
+document.getElementById("dob").max =
+    new Date().toISOString().slice(0, 10);
+</script>
 
 </body>
 </html>
