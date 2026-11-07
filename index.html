@@ -116,6 +116,7 @@
 
       <!-- User Question -->
       <div class="message-area">
+
         <div class="message user-message">
           <div class="message-avatar">YOU</div>
           <div class="message-content">
@@ -124,7 +125,7 @@
           </div>
         </div>
 
-        <!-- AI Answer -->
+        <!-- Main AI Answer -->
         <div class="message ai-message">
           <div class="message-avatar ai-avatar">AI</div>
           <div class="message-content">
@@ -134,7 +135,67 @@
             </p>
           </div>
         </div>
+
       </div>
+
+      <!-- ======================================
+           SEPARATE MODEL RESULTS
+           ====================================== -->
+
+      <section class="model-results-section">
+
+        <div class="model-results-heading">
+          <h3>AI Model Results</h3>
+          <p>Individual responses from each AI model</p>
+        </div>
+
+        <!-- GEMINI RESULT -->
+        <div class="model-result-card gemini-result-card">
+
+          <div class="model-result-header">
+            <div>
+              <span class="model-name">Gemini</span>
+              <small>Google AI</small>
+            </div>
+
+            <span
+              class="model-result-status"
+              id="geminiResultStatus"
+            >Waiting</span>
+          </div>
+
+          <div class="model-result-content">
+            <p id="geminiResult">
+              Waiting for Gemini response...
+            </p>
+          </div>
+
+        </div>
+
+        <!-- GROQ RESULT -->
+        <div class="model-result-card groq-result-card">
+
+          <div class="model-result-header">
+            <div>
+              <span class="model-name">Groq</span>
+              <small>Groq AI</small>
+            </div>
+
+            <span
+              class="model-result-status"
+              id="groqResultStatus"
+            >Waiting</span>
+          </div>
+
+          <div class="model-result-content">
+            <p id="groqResult">
+              Waiting for Groq response...
+            </p>
+          </div>
+
+        </div>
+
+      </section>
 
       <!-- Text Input -->
       <div class="input-section">
@@ -222,7 +283,14 @@
   <!-- ==========================================
        MODEL SWITCH JS
        ========================================== -->
+
   <script src="js/model-switch.js"></script>
+
+  <!-- ==========================================
+       USAGE MANAGER JS
+       ========================================== -->
+
+  <script src="js/usage-manager.js"></script>
 
   <!-- ==========================================
        MAIN JAVASCRIPT
@@ -298,7 +366,9 @@
     // ==========================================
 
     async function checkLogin() {
+
       try {
+
         const response = await fetch(API.SESSION, {
           method: "GET",
           credentials: "same-origin",
@@ -319,20 +389,27 @@
           return;
         }
 
-        // Optional: show the logged-in user's name.
         if (data.user && data.user.firstName) {
-          const welcome = document.querySelector(".welcome-description");
+
+          const welcome =
+            document.querySelector(".welcome-description");
+
           welcome.textContent =
             `Welcome, ${data.user.firstName}. Your intelligent voice assistant is ready.`;
+
         }
 
       } catch (error) {
+
         console.error("Authentication error:", error);
+
         showNotice(
           "Unable to verify your login. Please try again.",
           "error"
         );
+
       }
+
     }
 
     // ==========================================
@@ -340,22 +417,33 @@
     // ==========================================
 
     menuButton.addEventListener("click", () => {
-      const isOpen = dropdownMenu.classList.toggle("show");
+
+      const isOpen =
+        dropdownMenu.classList.toggle("show");
 
       menuButton.setAttribute(
         "aria-expanded",
         String(isOpen)
       );
+
     });
 
     document.addEventListener("click", (event) => {
+
       if (
         !menuButton.contains(event.target) &&
         !dropdownMenu.contains(event.target)
       ) {
+
         dropdownMenu.classList.remove("show");
-        menuButton.setAttribute("aria-expanded", "false");
+
+        menuButton.setAttribute(
+          "aria-expanded",
+          "false"
+        );
+
       }
+
     });
 
     // ==========================================
@@ -367,17 +455,24 @@
       .addEventListener("click", logout);
 
     async function logout() {
+
       try {
+
         await fetch(API.LOGOUT, {
           method: "POST",
           credentials: "same-origin"
         });
+
       } catch (error) {
+
         console.error("Logout error:", error);
+
       }
 
       window.speechSynthesis.cancel();
+
       window.location.replace("login.html");
+
     }
 
     // ==========================================
@@ -385,8 +480,12 @@
     // ==========================================
 
     function showNotice(message, type = "info") {
+
       noticeMessage.textContent = message;
-      noticeMessage.className = "notice-message " + type;
+
+      noticeMessage.className =
+        "notice-message " + type;
+
     }
 
     // ==========================================
@@ -394,12 +493,16 @@
     // ==========================================
 
     function speak(text) {
+
       if (!("speechSynthesis" in window)) {
+
         showNotice(
           "Voice output is not supported by this browser.",
           "error"
         );
+
         return;
+
       }
 
       const cleanText = String(text)
@@ -411,7 +514,8 @@
 
       window.speechSynthesis.cancel();
 
-      const utterance = new SpeechSynthesisUtterance(cleanText);
+      const utterance =
+        new SpeechSynthesisUtterance(cleanText);
 
       utterance.lang =
         answerLanguage === "bangla"
@@ -423,21 +527,171 @@
       utterance.volume = 1;
 
       utterance.onstart = () => {
-        assistantState.textContent = "NELOY AI is speaking...";
+
+        assistantState.textContent =
+          "NELOY AI is speaking...";
+
         assistantVisual.classList.add("speaking");
+
       };
 
       utterance.onend = () => {
-        assistantState.textContent = "Your assistant is ready";
+
+        assistantState.textContent =
+          "Your assistant is ready";
+
         assistantVisual.classList.remove("speaking");
+
       };
 
       utterance.onerror = () => {
+
         assistantVisual.classList.remove("speaking");
-        assistantState.textContent = "Your assistant is ready";
+
+        assistantState.textContent =
+          "Your assistant is ready";
+
       };
 
       window.speechSynthesis.speak(utterance);
+
+    }
+
+    // ==========================================
+    // MODEL SWITCH HELPERS
+    // ==========================================
+
+    function resetModelResults() {
+
+      if (window.ModelSwitch) {
+
+        ModelSwitch.reset();
+
+        ModelSwitch.setLoading("gemini");
+        ModelSwitch.setLoading("groq");
+
+      }
+
+    }
+
+    function updateModelResults(data) {
+
+      if (!window.ModelSwitch || !data) return;
+
+      // Expected backend format:
+      // data.results.gemini
+      // data.results.groq
+
+      if (data.results) {
+
+        ModelSwitch.update(data.results);
+
+      }
+
+      // Update provider status separately.
+      if (data.provider) {
+
+        updateProviderStatus(data.provider);
+
+      }
+
+    }
+
+    function handleModelErrors(data) {
+
+      if (!window.ModelSwitch || !data) return;
+
+      const results = data.results || {};
+
+      if (results.gemini &&
+          results.gemini.status === "error") {
+
+        ModelSwitch.setError(
+          "gemini",
+          results.gemini.answer ||
+          results.gemini.error ||
+          "Gemini request failed."
+        );
+
+      }
+
+      if (results.groq &&
+          results.groq.status === "error") {
+
+        ModelSwitch.setError(
+          "groq",
+          results.groq.answer ||
+          results.groq.error ||
+          "Groq request failed."
+        );
+
+      }
+
+    }
+
+    // ==========================================
+    // USAGE MANAGER INTEGRATION
+    // ==========================================
+
+    function startUsageTracking() {
+
+      if (!window.UsageManager) return;
+
+      UsageManager.startRequest("gemini");
+      UsageManager.startRequest("groq");
+
+    }
+
+    function updateUsageFromResults(data) {
+
+      if (!window.UsageManager || !data) return;
+
+      const results = data.results || {};
+
+      ["gemini", "groq"].forEach(provider => {
+
+        const result = results[provider];
+
+        if (!result) return;
+
+        const status = String(
+          result.status || ""
+        ).toLowerCase();
+
+        if (
+          status === "error" ||
+          status === "failed"
+        ) {
+
+          UsageManager.recordError(
+            provider,
+            result.error ||
+            result.answer ||
+            "Provider request failed."
+          );
+
+        } else if (
+          status === "success" ||
+          status === "completed" ||
+          result.answer
+        ) {
+
+          UsageManager.recordSuccess(provider);
+
+        } else if (
+          status === "quota_exhausted" ||
+          status === "quota exhausted"
+        ) {
+
+          UsageManager.setStatus(
+            provider,
+            "Quota Exhausted"
+          );
+
+        }
+
+      });
+
     }
 
     // ==========================================
@@ -445,97 +699,184 @@
     // ==========================================
 
     async function sendMessage(message) {
+
       const question = message.trim();
 
       if (!question) {
-        showNotice("Please enter or speak a question first.", "error");
+
+        showNotice(
+          "Please enter or speak a question first.",
+          "error"
+        );
+
         return;
+
       }
 
       if (isProcessing) return;
 
       isProcessing = true;
+
       setControlsDisabled(true);
 
       userMessage.textContent = question;
+
       aiAnswer.textContent = "Thinking...";
+
       loadingArea.hidden = false;
 
-      assistantState.textContent = "NELOY AI is thinking...";
+      assistantState.textContent =
+        "NELOY AI is thinking...";
+
       assistantVisual.classList.add("thinking");
 
       showNotice("");
 
+      // Reset both model result cards.
+      resetModelResults();
+
+      // Start Gemini and Groq usage tracking.
+      startUsageTracking();
+
       try {
+
         const response = await fetch(API.CHAT, {
+
           method: "POST",
+
           credentials: "same-origin",
+
           headers: {
             "Content-Type": "application/json",
             "Accept": "application/json"
           },
+
           body: JSON.stringify({
+
             message: question,
+
             answerLanguage: answerLanguage
+
           })
+
         });
 
         const data = await response.json();
 
+        // ======================================
+        // UPDATE USAGE FOR ALL RESPONSES
+        // ======================================
+
+        updateUsageFromResults(data);
+
+        // ======================================
+        // 24-HOUR USAGE LIMIT
+        // ======================================
+
         if (response.status === 429) {
-          const message =
+
+          const limitMessage =
             data.message ||
             "Your usage limit has been reached. Please try again after 24 hours.";
 
-          aiAnswer.textContent = message;
-          showNotice(message, "error");
-          speak(message);
+          aiAnswer.textContent = limitMessage;
 
-          if (data.lockedUntil) {
+          showNotice(limitMessage, "error");
+
+          if (data.results) {
+            updateModelResults(data);
+            handleModelErrors(data);
+          }
+
+          if (data.lockedUntil || data.locked === true) {
+
             textInput.disabled = true;
             submitButton.disabled = true;
             startRecordButton.disabled = true;
+            processVoiceButton.disabled = true;
+
           }
 
+          speak(limitMessage);
+
           return;
+
         }
 
+        // ======================================
+        // OTHER BACKEND ERRORS
+        // ======================================
+
         if (!response.ok) {
+
+          if (data.results) {
+            updateModelResults(data);
+            handleModelErrors(data);
+          }
+
           throw new Error(
             data.message || "Unable to get an AI response."
           );
+
         }
 
-        const answer = data.answer || data.response;
+        // ======================================
+        // UPDATE GEMINI AND GROQ RESULTS
+        // ======================================
+
+        updateModelResults(data);
+
+        handleModelErrors(data);
+
+        // ======================================
+        // MAIN AI ANSWER
+        // ======================================
+
+        const answer =
+          data.answer || data.response;
 
         if (!answer) {
-          throw new Error("The AI returned an empty response.");
+
+          throw new Error(
+            "The AI returned an empty response."
+          );
+
         }
 
         aiAnswer.textContent = answer;
 
-        // Update provider status when backend supplies it.
+        // Update provider status.
         updateProviderStatus(data.provider);
 
-        // Always speak the AI response.
+        // Speak the main AI response.
         speak(answer);
 
       } catch (error) {
+
         console.error("AI request error:", error);
 
         const errorMessage =
-          error.message || "Something went wrong. Please try again.";
+          error.message ||
+          "Something went wrong. Please try again.";
 
         aiAnswer.textContent = errorMessage;
+
         showNotice(errorMessage, "error");
+
         speak(errorMessage);
 
       } finally {
+
         loadingArea.hidden = true;
+
         assistantVisual.classList.remove("thinking");
+
         isProcessing = false;
+
         setControlsDisabled(false);
+
       }
+
     }
 
     // ==========================================
@@ -543,22 +884,39 @@
     // ==========================================
 
     submitButton.addEventListener("click", () => {
+
       const message = textInput.value.trim();
 
       if (!message) {
-        showNotice("Please type your question.", "error");
+
+        showNotice(
+          "Please type your question.",
+          "error"
+        );
+
         return;
+
       }
 
       sendMessage(message);
+
       textInput.value = "";
+
     });
 
     textInput.addEventListener("keydown", (event) => {
-      if (event.key === "Enter" && !event.shiftKey) {
+
+      if (
+        event.key === "Enter" &&
+        !event.shiftKey
+      ) {
+
         event.preventDefault();
+
         submitButton.click();
+
       }
+
     });
 
     // ==========================================
@@ -570,26 +928,39 @@
       window.webkitSpeechRecognition;
 
     if (SpeechRecognition) {
+
       recognition = new SpeechRecognition();
 
       recognition.continuous = true;
+
       recognition.interimResults = true;
+
       recognition.lang = DEFAULT_LANGUAGE;
 
       recognition.onstart = () => {
+
         isRecording = true;
 
-        recordingStatus.textContent = "Listening... Speak now.";
-        assistantState.textContent = "Listening to your voice...";
+        recordingStatus.textContent =
+          "Listening... Speak now.";
+
+        assistantState.textContent =
+          "Listening to your voice...";
+
         assistantVisual.classList.add("recording");
 
         startRecordButton.disabled = true;
+
         stopRecordButton.disabled = false;
+
         processVoiceButton.disabled = true;
+
       };
 
       recognition.onresult = (event) => {
+
         let finalTranscript = "";
+
         let interimTranscript = "";
 
         for (
@@ -597,14 +968,20 @@
           i < event.results.length;
           i++
         ) {
+
           const transcript =
             event.results[i][0].transcript;
 
           if (event.results[i].isFinal) {
+
             finalTranscript += transcript + " ";
+
           } else {
+
             interimTranscript += transcript;
+
           }
+
         }
 
         recognizedTranscript += finalTranscript;
@@ -612,9 +989,11 @@
         recognizedText.textContent =
           (recognizedTranscript + interimTranscript).trim() ||
           "Listening...";
+
       };
 
       recognition.onerror = (event) => {
+
         recordingStatus.textContent =
           "Microphone error: " + event.error;
 
@@ -622,35 +1001,48 @@
           "Speech recognition error: " + event.error,
           "error"
         );
+
       };
 
       recognition.onend = () => {
+
         isRecording = false;
 
         assistantVisual.classList.remove("recording");
-        assistantState.textContent = "Your assistant is ready";
+
+        assistantState.textContent =
+          "Your assistant is ready";
 
         startRecordButton.disabled = false;
+
         stopRecordButton.disabled = true;
 
         processVoiceButton.disabled =
           !recognizedTranscript.trim();
 
         if (recognizedTranscript.trim()) {
+
           recordingStatus.textContent =
             "Voice captured. Press Process Voice.";
+
         } else {
+
           recordingStatus.textContent =
             "No speech detected. Please try again.";
+
         }
+
       };
 
     } else {
+
       recordingStatus.textContent =
         "Speech recognition is not supported. Please use a supported browser.";
 
       startRecordButton.disabled = true;
+
       stopRecordButton.disabled = true;
+
     }
 
     // ==========================================
@@ -658,11 +1050,19 @@
     // ==========================================
 
     startRecordButton.addEventListener("click", () => {
-      if (!recognition || isRecording || isProcessing) return;
+
+      if (
+        !recognition ||
+        isRecording ||
+        isProcessing
+      ) return;
 
       recognizedTranscript = "";
+
       recognizedText.textContent = "Listening...";
-      recordingStatus.textContent = "Starting microphone...";
+
+      recordingStatus.textContent =
+        "Starting microphone...";
 
       recognition.lang =
         answerLanguage === "bangla"
@@ -670,13 +1070,18 @@
           : DEFAULT_LANGUAGE;
 
       try {
+
         recognition.start();
+
       } catch (error) {
+
         showNotice(
           "Microphone could not start. Please try again.",
           "error"
         );
+
       }
+
     });
 
     // ==========================================
@@ -684,10 +1089,16 @@
     // ==========================================
 
     stopRecordButton.addEventListener("click", () => {
+
       if (recognition && isRecording) {
+
         recognition.stop();
-        recordingStatus.textContent = "Stopping microphone...";
+
+        recordingStatus.textContent =
+          "Stopping microphone...";
+
       }
+
     });
 
     // ==========================================
@@ -695,14 +1106,22 @@
     // ==========================================
 
     processVoiceButton.addEventListener("click", () => {
+
       const message = recognizedTranscript.trim();
 
       if (!message) {
-        showNotice("No voice was detected. Please record again.", "error");
+
+        showNotice(
+          "No voice was detected. Please record again.",
+          "error"
+        );
+
         return;
+
       }
 
       sendMessage(message);
+
     });
 
     // ==========================================
@@ -710,8 +1129,11 @@
     // ==========================================
 
     function setControlsDisabled(disabled) {
+
       submitButton.disabled = disabled;
+
       textInput.disabled = disabled;
+
       startRecordButton.disabled =
         disabled || !recognition || isRecording;
 
@@ -720,6 +1142,7 @@
 
       processVoiceButton.disabled =
         disabled || !recognizedTranscript.trim();
+
     }
 
     // ==========================================
@@ -727,6 +1150,7 @@
     // ==========================================
 
     function updateProviderStatus(provider) {
+
       const geminiStatus =
         document.getElementById("geminiStatus");
 
@@ -741,22 +1165,31 @@
 
       if (!provider) return;
 
-      const activeProvider = provider.toLowerCase();
+      const activeProvider =
+        provider.toLowerCase();
 
       if (activeProvider.includes("gemini")) {
+
         geminiStatus.textContent = "Active";
+
         groqStatus.textContent = "Standby";
 
         geminiIndicator.classList.add("active");
+
         groqIndicator.classList.remove("active");
 
       } else if (activeProvider.includes("groq")) {
+
         geminiStatus.textContent = "Fallback";
+
         groqStatus.textContent = "Active";
 
         geminiIndicator.classList.remove("active");
+
         groqIndicator.classList.add("active");
+
       }
+
     }
 
     // ==========================================
@@ -764,15 +1197,22 @@
     // ==========================================
 
     function createParticles() {
-      const container = document.getElementById("particles");
+
+      const container =
+        document.getElementById("particles");
 
       if (!container) return;
 
       for (let i = 0; i < 45; i++) {
-        const particle = document.createElement("span");
+
+        const particle =
+          document.createElement("span");
 
         particle.className = "particle";
-        particle.style.left = Math.random() * 100 + "%";
+
+        particle.style.left =
+          Math.random() * 100 + "%";
+
         particle.style.animationDelay =
           Math.random() * 10 + "s";
 
@@ -780,26 +1220,43 @@
           (5 + Math.random() * 10) + "s";
 
         container.appendChild(particle);
+
       }
+
     }
 
     function initialize() {
+
       createParticles();
+
       checkLogin();
+
+      // Initialize Usage Manager.
+      if (window.UsageManager) {
+        UsageManager.init();
+      }
 
       // Welcome voice on first visit after login.
       const shouldWelcome =
         sessionStorage.getItem("neloy_home_welcome") !== "shown";
 
       if (shouldWelcome) {
-        sessionStorage.setItem("neloy_home_welcome", "shown");
+
+        sessionStorage.setItem(
+          "neloy_home_welcome",
+          "shown"
+        );
 
         setTimeout(() => {
+
           speak(
             "Welcome to Neloy's website. It's a pleasure to have you here."
           );
+
         }, 1000);
+
       }
+
     }
 
     initialize();
