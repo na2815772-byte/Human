@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>NELOY AI - Login</title>
+    <meta name="description" content="Login to your NELOY AI account.">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="auth-page login-page">
+
+    <!-- Animated Background -->
+    <div class="background-effects">
+        <div class="gradient-orb orb-one"></div>
+        <div class="gradient-orb orb-two"></div>
+        <div class="gradient-orb orb-three"></div>
+        <div class="background-grid"></div>
+    </div>
+
+    <main class="auth-container">
+
+        <section class="auth-card">
+
+            <!-- Logo -->
+            <div class="auth-logo">
+                <div class="logo-icon">
+                    <span>N</span>
+                </div>
+
+                <h1>NELOY<span>AI</span></h1>
+                <p>Your Intelligent AI Assistant</p>
+            </div>
+
+            <!-- Heading -->
+            <div class="auth-heading">
+
+                <span class="welcome-label">
+                    WELCOME BACK
+                </span>
+
+                <h2>Sign In to Your Account</h2>
+
+                <p>
+                    Continue your AI experience with NELOY.
+                </p>
+
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" autocomplete="on">
+
+                <!-- Email / Username -->
+                <div class="form-group">
+
+                    <label for="identity">
+                        Email Address or Username
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">👤</span>
+
+                        <input
+                            type="text"
+                            id="identity"
+                            name="identity"
+                            placeholder="Enter email or username"
+                            autocomplete="username"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">🔒</span>
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            id="togglePassword"
+                            aria-label="Show password"
+                        >
+                            SHOW
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- Remember Me / Forgot Password -->
+                <div class="login-options">
+
+                    <label class="checkbox-label">
+
+                        <input
+                            type="checkbox"
+                            id="rememberMe"
+                        >
+
+                        <span>Remember Me</span>
+
+                    </label>
+
+                    <a href="forgot-password.html">
+                        Forgot Password?
+                    </a>
+
+                </div>
+
+                <!-- Message -->
+                <div
+                    id="loginMessage"
+                    class="form-message"
+                    role="status"
+                    aria-live="polite"
+                ></div>
+
+                <!-- Login Button -->
+                <button
+                    type="submit"
+                    id="loginButton"
+                    class="primary-button"
+                >
+
+                    <span>Sign In</span>
+
+                    <span class="button-arrow">→</span>
+
+                </button>
+
+            </form>
+
+            <!-- Registration Link -->
+            <div class="auth-footer">
+
+                <p>
+                    Don't have an account?
+
+                    <a href="registration.html">
+                        Create Account
+                    </a>
+                </p>
+
+            </div>
+
+            <!-- Footer -->
+            <div class="auth-bottom">
+
+                <span>POWERED BY NELOY AI</span>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Login JavaScript -->
+    <script>
+
+        const loginForm =
+            document.getElementById("loginForm");
+
+        const identity =
+            document.getElementById("identity");
+
+        const password =
+            document.getElementById("password");
+
+        const message =
+            document.getElementById("loginMessage");
+
+        const loginButton =
+            document.getElementById("loginButton");
+
+
+        // Show / Hide Password
+
+        document.getElementById("togglePassword")
+            .addEventListener("click", function() {
+
+                const isHidden =
+                    password.type === "password";
+
+                password.type =
+                    isHidden ? "text" : "password";
+
+                this.textContent =
+                    isHidden ? "HIDE" : "SHOW";
+
+                this.setAttribute(
+                    "aria-label",
+                    isHidden ? "Hide password" : "Show password"
+                );
+
+            });
+
+
+        // Message Function
+
+        function showMessage(text, type) {
+
+            message.textContent = text;
+
+            message.className =
+                "form-message " + type;
+
+        }
+
+
+        // Login System
+
+        loginForm.addEventListener("submit", async function(event) {
+
+            event.preventDefault();
+
+            const userIdentity =
+                identity.value.trim();
+
+            const userPassword =
+                password.value;
+
+            const rememberMe =
+                document.getElementById("rememberMe").checked;
+
+
+            if (!userIdentity || !userPassword) {
+
+                showMessage(
+                    "Please enter your email/username and password.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            loginButton.disabled = true;
+
+            loginButton.querySelector("span").textContent =
+                "Signing In...";
+
+
+            try {
+
+                const response = await fetch("/api/auth/login", {
+
+                    method: "POST",
+
+                    credentials: "same-origin",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        identity: userIdentity,
+
+                        password: userPassword,
+
+                        rememberMe: rememberMe
+
+                    })
+
+                });
+
+
+                const result = await response.json();
+
+
+                if (!response.ok || !result.success) {
+
+                    throw new Error(
+                        result.message || "Invalid login credentials."
+                    );
+
+                }
+
+
+                // Login Successful
+
+                showMessage(
+                    "Login successful! Welcome to NELOY AI.",
+                    "success"
+                );
+
+
+                loginForm.querySelectorAll(
+                    "input, button"
+                ).forEach(element => {
+
+                    element.disabled = true;
+
+                });
+
+
+                // Redirect to Main Website
+
+                setTimeout(() => {
+
+                    window.location.replace("index.html");
+
+                }, 1200);
+
+
+            } catch (error) {
+
+                showMessage(
+                    error.message || "Unable to connect to the server.",
+                    "error"
+                );
+
+                loginButton.disabled = false;
+
+                loginButton.querySelector("span").textContent =
+                    "Sign In";
+
+            }
+
+        });
+
+    </script>
+
+</body>
+</html>
