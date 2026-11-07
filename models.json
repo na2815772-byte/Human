@@ -1,0 +1,42 @@
+{
+  "app_name": "NELOY AI VOICE ASSISTANT",
+  "version": "1.0.0",
+  "default_provider": "gemini",
+
+  "models": [
+    {
+      "name": "Google Gemini",
+      "provider": "gemini",
+      "model_id": "gemini-2.5-flash",
+      "enabled": true,
+      "priority": 1,
+      "result_id": "geminiResult",
+      "status_id": "geminiResultStatus",
+      "description": "Primary AI model",
+      "display_name": "Gemini"
+    },
+    {
+      "name": "Groq AI",
+      "provider": "groq",
+      "model_id": "llama-3.3-70b-versatile",
+      "enabled": true,
+      "priority": 2,
+      "result_id": "groqResult",
+      "status_id": "groqResultStatus",
+      "description": "Secondary AI model",
+      "display_name": "Groq"
+    }
+  ],
+
+  "settings": {
+    "show_separate_results": true,
+    "show_model_status": true,
+    "default_answer_language": "english",
+    "supported_languages": [
+      "english",
+      "bangla"
+    ],
+    "parallel_requests": true,
+    "fallback_enabled": true
+  }
+}
