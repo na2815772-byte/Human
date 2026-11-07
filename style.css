@@ -1,0 +1,1579 @@
+/* ============================================================
+   NELOY AI VOICE ASSISTANT
+   UNIVERSAL PREMIUM DESIGN SYSTEM
+   VERSION 3.0.0
+
+   Covers:
+   Registration | Login | Home
+   Voice | Speech | Assistant
+   Gemini | Groq | Usage Manager
+   Responsive | Glassmorphism | Dynamic Effects
+============================================================ */
+
+
+/* ============================================================
+   01. DESIGN VARIABLES
+============================================================ */
+
+:root {
+  color-scheme: dark;
+
+  --bg: #070b18;
+  --bg-2: #0b1224;
+  --bg-3: #111b34;
+
+  --surface: rgba(18, 29, 55, .78);
+  --surface-2: rgba(255, 255, 255, .045);
+
+  --primary: #8065ff;
+  --primary-2: #a18aff;
+  --cyan: #00d9ff;
+  --pink: #ff4fd8;
+
+  --green: #21e6a2;
+  --red: #ff5275;
+  --yellow: #ffca70;
+
+  --white: #f7f8ff;
+  --text: #c1cbe0;
+  --muted: #7786a4;
+
+  --border: rgba(255,255,255,.09);
+  --border-active: rgba(128,101,255,.55);
+
+  --radius-sm: 10px;
+  --radius: 17px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+
+  --shadow:
+    0 20px 60px rgba(0,0,0,.30);
+
+  --purple-glow:
+    0 0 35px rgba(128,101,255,.24);
+
+  --cyan-glow:
+    0 0 35px rgba(0,217,255,.18);
+
+  --transition: .3s ease;
+}
+
+
+/* ============================================================
+   02. RESET
+============================================================ */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  min-height: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+
+  background:
+    radial-gradient(
+      ellipse at 15% 10%,
+      rgba(128,101,255,.18),
+      transparent 38%
+    ),
+    radial-gradient(
+      ellipse at 90% 30%,
+      rgba(0,217,255,.10),
+      transparent 38%
+    ),
+    radial-gradient(
+      ellipse at 50% 100%,
+      rgba(255,79,216,.07),
+      transparent 45%
+    ),
+    var(--bg);
+
+  color: var(--white);
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Roboto,
+    Arial,
+    sans-serif;
+
+  line-height: 1.6;
+
+  animation: neloyPageEnter .65s ease both;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: var(--cyan);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+::selection {
+  color: white;
+  background: var(--primary);
+}
+
+
+/* ============================================================
+   03. BACKGROUND ANIMATION
+============================================================ */
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+
+  width: 380px;
+  height: 380px;
+
+  border-radius: 50%;
+  filter: blur(110px);
+
+  opacity: .15;
+  pointer-events: none;
+  z-index: -1;
+
+  animation: neloyFloatGlow 14s ease-in-out infinite alternate;
+}
+
+body::before {
+  top: -150px;
+  left: -150px;
+  background: var(--primary);
+}
+
+body::after {
+  right: -150px;
+  bottom: -150px;
+  background: var(--cyan);
+  animation-delay: -6s;
+}
+
+
+/* Existing particle system */
+
+#particles {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+
+  background: var(--cyan);
+  box-shadow: 0 0 15px var(--cyan);
+
+  opacity: .45;
+
+  animation: neloyParticle 15s linear infinite;
+}
+
+.particle:nth-child(2n) {
+  background: var(--primary-2);
+  box-shadow: 0 0 15px var(--primary);
+  animation-duration: 19s;
+}
+
+.particle:nth-child(3n) {
+  background: var(--pink);
+  box-shadow: 0 0 15px var(--pink);
+  animation-duration: 22s;
+}
+
+
+/* ============================================================
+   04. GLOBAL ANIMATIONS
+============================================================ */
+
+@keyframes neloyPageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes neloyFloatGlow {
+  from {
+    transform: translate(0,0) scale(1);
+  }
+  to {
+    transform: translate(65px,45px) scale(1.2);
+  }
+}
+
+@keyframes neloyParticle {
+  0% {
+    transform: translateY(110vh) translateX(0);
+    opacity: 0;
+  }
+  15% {
+    opacity: .5;
+  }
+  85% {
+    opacity: .5;
+  }
+  100% {
+    transform: translateY(-10vh) translateX(80px);
+    opacity: 0;
+  }
+}
+
+@keyframes neloyPulse {
+  0%,100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.07);
+    opacity: .75;
+  }
+}
+
+@keyframes neloySpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes neloyShimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes neloyRecording {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255,82,117,.65);
+  }
+  70% {
+    box-shadow: 0 0 0 20px rgba(255,82,117,0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255,82,117,0);
+  }
+}
+
+@keyframes neloyTyping {
+  0%,80%,100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-7px);
+  }
+}
+
+@keyframes neloyBorderGlow {
+  0%,100% {
+    border-color: rgba(128,101,255,.25);
+  }
+  50% {
+    border-color: rgba(0,217,255,.5);
+  }
+}
+
+@keyframes neloyWave {
+  0%,100% {
+    transform: scaleY(.4);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+
+/* ============================================================
+   05. COMMON LAYOUT
+============================================================ */
+
+.container,
+.main-container,
+.page-container,
+.home-container {
+  width: min(1180px, 92%);
+  margin-inline: auto;
+}
+
+section {
+  margin-bottom: 26px;
+}
+
+.page-title,
+.page-header {
+  text-align: center;
+  margin: 35px auto;
+}
+
+h1,h2,h3,h4,h5 {
+  color: var(--white);
+  line-height: 1.3;
+}
+
+p {
+  color: var(--text);
+}
+
+.page-title h1,
+.page-header h1,
+.gradient-text {
+  font-size: clamp(28px,5vw,49px);
+  font-weight: 850;
+
+  background: linear-gradient(
+    100deg,
+    white,
+    var(--primary-2),
+    var(--cyan),
+    white
+  );
+
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  animation: neloyShimmer 7s linear infinite;
+}
+
+
+/* ============================================================
+   06. UNIVERSAL GLASS CARDS
+============================================================ */
+
+.card,
+.panel,
+.glass-card,
+.auth-card,
+.login-card,
+.registration-card,
+.result-card,
+.chat-card,
+.settings-card,
+.assistant-card,
+.model-card,
+.usage-card,
+.menu-card {
+  position: relative;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(25,37,69,.82),
+      rgba(10,17,35,.88)
+    );
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+
+  padding: 24px;
+
+  box-shadow: var(--shadow);
+
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+
+  transition:
+    transform var(--transition),
+    border-color var(--transition),
+    box-shadow var(--transition);
+}
+
+.card:hover,
+.panel:hover,
+.glass-card:hover,
+.result-card:hover,
+.model-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-active);
+  box-shadow: var(--purple-glow), var(--shadow);
+}
+
+
+/* ============================================================
+   07. NAVIGATION
+============================================================ */
+
+header,
+.navbar,
+.topbar,
+.main-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+
+  padding: 14px 5%;
+
+  background: rgba(7,11,24,.82);
+  border-bottom: 1px solid var(--border);
+
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+}
+
+.logo,
+.brand,
+.site-logo {
+  font-size: 21px;
+  font-weight: 900;
+  letter-spacing: .8px;
+
+  background: linear-gradient(
+    90deg,
+    var(--primary-2),
+    var(--cyan)
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+nav a {
+  color: var(--text);
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+nav a:hover,
+nav a.active {
+  color: white;
+  text-shadow: 0 0 15px var(--cyan);
+}
+
+
+/* ============================================================
+   08. BUTTON SYSTEM
+============================================================ */
+
+button,
+.btn,
+.button {
+  min-height: 44px;
+
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+
+  padding: 12px 22px;
+
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+
+  color: white;
+  font-weight: 750;
+
+  background: linear-gradient(
+    120deg,
+    var(--primary),
+    #5746d8
+  );
+
+  box-shadow: 0 7px 24px rgba(128,101,255,.22);
+
+  transition:
+    transform var(--transition),
+    filter var(--transition),
+    box-shadow var(--transition);
+}
+
+button:hover,
+.btn:hover,
+.button:hover {
+  transform: translateY(-3px);
+  filter: brightness(1.15);
+  box-shadow: 0 10px 32px rgba(128,101,255,.42);
+}
+
+button:active,
+.btn:active {
+  transform: scale(.96);
+}
+
+button:disabled,
+.btn:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-secondary,
+.secondary-btn {
+  background: linear-gradient(120deg,#087fbd,#00b8d9);
+}
+
+.btn-success,
+.success-btn {
+  background: linear-gradient(120deg,#0b9c73,#20d99c);
+}
+
+.btn-danger,
+.danger-btn,
+.logout-btn {
+  background: linear-gradient(120deg,#e83e68,#aa1d4c);
+}
+
+.btn-outline {
+  color: var(--primary-2);
+  background: transparent;
+  border-color: var(--primary);
+  box-shadow: none;
+}
+
+.btn-outline:hover {
+  background: rgba(128,101,255,.14);
+}
+
+
+/* ============================================================
+   09. INPUTS AND FORMS
+============================================================ */
+
+form {
+  width: 100%;
+}
+
+.form-group,
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 19px;
+}
+
+label {
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 650;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  min-height: 49px;
+
+  padding: 13px 15px;
+
+  color: var(--white);
+  background: rgba(5,10,24,.78);
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+
+  outline: none;
+
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition),
+    background var(--transition);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--muted);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--primary-2);
+
+  box-shadow:
+    0 0 0 3px rgba(128,101,255,.15),
+    0 0 24px rgba(128,101,255,.12);
+
+  background: rgba(12,19,40,.95);
+}
+
+textarea {
+  min-height: 125px;
+  resize: vertical;
+}
+
+select option {
+  color: white;
+  background: var(--bg-2);
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  width: auto;
+  min-height: auto;
+  accent-color: var(--primary);
+}
+
+
+/* ============================================================
+   10. REGISTRATION PAGE
+============================================================ */
+
+.registration-container,
+.auth-container {
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 35px 18px;
+}
+
+.registration-card {
+  width: min(490px,100%);
+  padding: 36px;
+
+  border-color: rgba(128,101,255,.3);
+
+  background: linear-gradient(
+    145deg,
+    rgba(27,37,72,.94),
+    rgba(9,15,33,.96)
+  );
+
+  animation: neloyPageEnter .7s ease both;
+}
+
+.registration-card h1 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.registration-card .subtitle {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.registration-card button {
+  width: 100%;
+}
+
+
+/* ============================================================
+   11. LOGIN PAGE
+============================================================ */
+
+.login-container {
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 25px 18px;
+}
+
+.login-card {
+  width: min(440px,100%);
+  padding: 35px;
+
+  background: linear-gradient(
+    145deg,
+    rgba(27,37,72,.94),
+    rgba(9,15,33,.96)
+  );
+
+  animation: neloyPageEnter .7s ease both;
+}
+
+.login-card h1 {
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.login-card .subtitle {
+  text-align: center;
+  margin-bottom: 26px;
+}
+
+.login-card button {
+  width: 100%;
+}
+
+
+/* ============================================================
+   12. HOME PAGE
+============================================================ */
+
+.home-welcome,
+.welcome-section {
+  text-align: center;
+  padding: 45px 20px;
+}
+
+.home-welcome h1,
+.welcome-section h1 {
+  font-size: clamp(30px,5vw,55px);
+  font-weight: 900;
+}
+
+.home-welcome p,
+.welcome-section p {
+  max-width: 680px;
+  margin: 14px auto 25px;
+}
+
+.home-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+.home-actions button {
+  min-width: 145px;
+}
+
+
+/* ============================================================
+   13. AI ASSISTANT ORB
+============================================================ */
+
+.ai-orb,
+.assistant-orb,
+.voice-orb,
+#assistantOrb {
+  position: relative;
+
+  width: 155px;
+  height: 155px;
+
+  margin: 30px auto;
+
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle at 35% 30%,
+    white,
+    #9e8cff 14%,
+    #5845d4 43%,
+    #101d4b 78%
+  );
+
+  border: 2px solid rgba(255,255,255,.25);
+
+  animation:
+    neloyPulse 4s ease-in-out infinite,
+    neloyOrbGlow 3s ease-in-out infinite alternate;
+}
+
+.ai-orb::after,
+.assistant-orb::after,
+.voice-orb::after,
+#assistantOrb::after {
+  content: "";
+
+  position: absolute;
+  inset: -12px;
+
+  border: 1px solid rgba(0,217,255,.48);
+  border-radius: 50%;
+
+  animation: neloySpin 12s linear infinite;
+}
+
+@keyframes neloyOrbGlow {
+  0% {
+    box-shadow: 0 0 25px rgba(128,101,255,.5);
+  }
+  100% {
+    box-shadow: 0 0 60px rgba(0,217,255,.55);
+  }
+}
+
+
+/* ============================================================
+   14. VOICE RECORDING
+============================================================ */
+
+.recording-btn,
+#startRecording {
+  width: 66px;
+  height: 66px;
+  padding: 0;
+  border-radius: 50%;
+}
+
+.recording,
+.is-recording,
+.recording-active,
+#startRecording.recording {
+  background: linear-gradient(135deg,#ff365d,#b81748);
+  animation: neloyRecording 1.4s infinite;
+}
+
+.recording-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+
+  color: var(--red);
+  font-weight: 750;
+}
+
+.recording-indicator::before {
+  content: "";
+
+  width: 10px;
+  height: 10px;
+
+  border-radius: 50%;
+  background: var(--red);
+
+  animation: neloyPulse .8s infinite;
+}
+
+
+/* ============================================================
+   15. SPEECH VISUALIZER
+============================================================ */
+
+.voice-visualizer,
+.audio-visualizer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+
+  min-height: 70px;
+  padding: 15px;
+}
+
+.voice-visualizer span,
+.audio-visualizer span {
+  width: 5px;
+  height: 22px;
+
+  border-radius: 10px;
+
+  background: linear-gradient(
+    to top,
+    var(--primary),
+    var(--cyan)
+  );
+
+  transform-origin: center;
+
+  animation: neloyWave .8s ease-in-out infinite;
+}
+
+.voice-visualizer span:nth-child(2n),
+.audio-visualizer span:nth-child(2n) {
+  animation-delay: .15s;
+}
+
+.voice-visualizer span:nth-child(3n),
+.audio-visualizer span:nth-child(3n) {
+  animation-delay: .3s;
+}
+
+
+/* ============================================================
+   16. GEMINI AND GROQ PROVIDERS
+============================================================ */
+
+.provider-grid,
+.model-grid,
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 20px;
+}
+
+.provider-status,
+.model-status,
+.status-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 14px 16px;
+
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.status-indicator,
+.status-dot,
+.indicator {
+  width: 10px;
+  height: 10px;
+
+  flex-shrink: 0;
+  border-radius: 50%;
+
+  background: var(--yellow);
+}
+
+.status-indicator.online,
+.status-dot.online,
+.indicator.online {
+  background: var(--green);
+  box-shadow: 0 0 14px var(--green);
+}
+
+.status-indicator.error,
+.status-dot.error,
+.indicator.error {
+  background: var(--red);
+  box-shadow: 0 0 14px var(--red);
+}
+
+.status-indicator.loading,
+.status-dot.loading,
+.indicator.loading {
+  background: var(--cyan);
+  animation: neloyPulse 1s infinite;
+}
+
+#geminiResult,
+.gemini-card {
+  border-top: 3px solid #4285f4;
+}
+
+#groqResult,
+.groq-card {
+  border-top: 3px solid var(--green);
+}
+
+
+/* ============================================================
+   17. MODEL RESULT CARDS
+============================================================ */
+
+.result-card {
+  min-height: 150px;
+  overflow-wrap: anywhere;
+}
+
+.result-card h3 {
+  margin-bottom: 12px;
+}
+
+.result-card p {
+  white-space: pre-wrap;
+}
+
+#geminiResult,
+#groqResult {
+  min-height: 100px;
+  padding: 19px;
+
+  background: rgba(7,13,29,.72);
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+
+/* ============================================================
+   18. CHAT SYSTEM
+============================================================ */
+
+.chat-container,
+.chat-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+}
+
+.chat-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.message,
+.chat-message {
+  max-width: 85%;
+
+  padding: 15px 18px;
+
+  border-radius: 19px;
+
+  overflow-wrap: anywhere;
+
+  animation: neloyPageEnter .35s ease both;
+}
+
+.user-message {
+  align-self: flex-end;
+
+  color: white;
+
+  background: linear-gradient(
+    120deg,
+    #6251dd,
+    #8067fa
+  );
+
+  border-bottom-right-radius: 5px;
+}
+
+.ai-message,
+.bot-message {
+  align-self: flex-start;
+
+  background: rgba(255,255,255,.07);
+  border: 1px solid var(--border);
+
+  border-bottom-left-radius: 5px;
+}
+
+.chat-input-area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.chat-input-area input {
+  flex: 1;
+}
+
+
+/* ============================================================
+   19. USAGE MANAGER
+============================================================ */
+
+.usage-card,
+.usage-panel {
+  padding: 20px;
+
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+
+.usage-progress,
+.progress-track {
+  height: 9px;
+  width: 100%;
+
+  overflow: hidden;
+
+  border-radius: 20px;
+
+  background: rgba(255,255,255,.08);
+}
+
+.usage-progress-bar,
+.progress-bar {
+  height: 100%;
+  width: 0;
+
+  border-radius: inherit;
+
+  background: linear-gradient(
+    90deg,
+    var(--primary),
+    var(--cyan)
+  );
+
+  transition: width .5s ease;
+}
+
+.usage-warning {
+  color: var(--yellow);
+}
+
+.usage-exhausted {
+  color: var(--red);
+}
+
+.usage-available {
+  color: var(--green);
+}
+
+
+/* ============================================================
+   20. LOADING AND TYPING
+============================================================ */
+
+.loader,
+.loading-spinner {
+  width: 38px;
+  height: 38px;
+
+  border: 3px solid rgba(255,255,255,.12);
+  border-top-color: var(--cyan);
+
+  border-radius: 50%;
+
+  animation: neloySpin .8s linear infinite;
+}
+
+.typing-indicator {
+  display: flex;
+  gap: 5px;
+  padding: 12px;
+}
+
+.typing-indicator span {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+  background: var(--cyan);
+
+  animation: neloyTyping 1s infinite;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation-delay: .15s;
+}
+
+.typing-indicator span:nth-child(3) {
+  animation-delay: .3s;
+}
+
+
+/* ============================================================
+   21. NOTIFICATIONS
+============================================================ */
+
+.notice,
+.alert,
+.message-box {
+  padding: 14px 17px;
+
+  margin: 12px 0;
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+
+  background: var(--surface-2);
+}
+
+.success,
+.alert-success {
+  color: var(--green);
+  border-color: rgba(33,230,162,.3);
+  background: rgba(33,230,162,.07);
+}
+
+.error,
+.alert-error {
+  color: #ff8294;
+  border-color: rgba(255,82,117,.3);
+  background: rgba(255,82,117,.07);
+}
+
+.warning,
+.alert-warning {
+  color: var(--yellow);
+  border-color: rgba(255,202,112,.3);
+}
+
+
+/* ============================================================
+   22. MENU AND DROPDOWN
+============================================================ */
+
+.dropdown,
+.dropdown-menu,
+.menu-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+
+  min-width: 210px;
+  padding: 10px;
+
+  background: rgba(13,20,40,.97);
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+
+  box-shadow: var(--shadow);
+
+  backdrop-filter: blur(20px);
+
+  z-index: 1001;
+
+  animation: neloyPageEnter .2s ease both;
+}
+
+.dropdown a,
+.dropdown button,
+.menu-dropdown a,
+.menu-dropdown button {
+  display: flex;
+  justify-content: flex-start;
+
+  width: 100%;
+
+  color: var(--text);
+  background: transparent;
+
+  padding: 11px 13px;
+
+  box-shadow: none;
+  border-radius: 9px;
+}
+
+.dropdown a:hover,
+.dropdown button:hover,
+.menu-dropdown a:hover,
+.menu-dropdown button:hover {
+  color: white;
+  background: rgba(128,101,255,.17);
+  transform: none;
+}
+
+
+/* ============================================================
+   23. MODAL AND POPUP
+============================================================ */
+
+.modal,
+.overlay {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background: rgba(0,0,0,.74);
+  backdrop-filter: blur(10px);
+
+  z-index: 2000;
+}
+
+.modal-content,
+.popup-content {
+  width: min(480px,100%);
+
+  background: var(--bg-3);
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+
+  padding: 25px;
+
+  box-shadow: var(--shadow);
+
+  animation: neloyPageEnter .3s ease both;
+}
+
+
+/* ============================================================
+   24. SETTINGS
+============================================================ */
+
+.settings-container {
+  width: min(900px,92%);
+  margin: 30px auto;
+}
+
+.setting-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+
+  padding: 17px 0;
+
+  border-bottom: 1px solid var(--border);
+}
+
+input[type="range"] {
+  accent-color: var(--primary);
+}
+
+
+/* ============================================================
+   25. TABLES
+============================================================ */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+  border-radius: var(--radius);
+}
+
+th,td {
+  padding: 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+th {
+  color: var(--primary-2);
+  background: rgba(128,101,255,.12);
+}
+
+td {
+  color: var(--text);
+}
+
+
+/* ============================================================
+   26. FOOTER
+============================================================ */
+
+footer {
+  padding: 30px 15px;
+  margin-top: 45px;
+
+  text-align: center;
+
+  color: var(--muted);
+
+  border-top: 1px solid var(--border);
+}
+
+
+/* ============================================================
+   27. SCROLLBAR
+============================================================ */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    var(--primary),
+    var(--cyan)
+  );
+
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-2);
+}
+
+
+/* ============================================================
+   28. ACCESSIBILITY
+============================================================ */
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+}
+
+
+/* ============================================================
+   29. TABLET RESPONSIVE
+============================================================ */
+
+@media (max-width: 850px) {
+
+  .provider-grid,
+  .model-grid,
+  .results-grid {
+    grid-template-columns: 1fr;
+  }
+
+  nav {
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .registration-card,
+  .login-card {
+    padding: 28px 22px;
+  }
+
+}
+
+
+/* ============================================================
+   30. MOBILE RESPONSIVE
+============================================================ */
+
+@media (max-width: 600px) {
+
+  body {
+    font-size: 14px;
+  }
+
+  header,
+  .navbar,
+  .topbar,
+  .main-header {
+    padding: 12px 4%;
+    flex-wrap: wrap;
+  }
+
+  nav {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .container,
+  .main-container,
+  .page-container,
+  .home-container {
+    width: 94%;
+  }
+
+  .card,
+  .panel,
+  .glass-card,
+  .result-card {
+    padding: 17px;
+    border-radius: 18px;
+  }
+
+  .registration-card,
+  .login-card {
+    padding: 23px 17px;
+  }
+
+  .home-welcome,
+  .welcome-section {
+    padding: 30px 10px;
+  }
+
+  .home-actions {
+    flex-direction: column;
+  }
+
+  .home-actions button,
+  .home-actions .btn {
+    width: 100%;
+  }
+
+  .chat-input-area {
+    flex-wrap: wrap;
+  }
+
+  .chat-input-area input {
+    width: 100%;
+    flex-basis: 100%;
+  }
+
+  .message,
+  .chat-message {
+    max-width: 95%;
+  }
+
+  .ai-orb,
+  .assistant-orb,
+  .voice-orb,
+  #assistantOrb {
+    width: 115px;
+    height: 115px;
+  }
+
+  .setting-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  th,td {
+    padding: 9px;
+    font-size: 12px;
+  }
+
+}
+
+
+/* ============================================================
+   31. SMALL MOBILE
+============================================================ */
+
+@media (max-width: 360px) {
+
+  .registration-card,
+  .login-card {
+    padding: 19px 13px;
+  }
+
+  button,
+  .btn {
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+
+}
+
+
+/* ============================================================
+   32. REDUCED MOTION
+============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+
+}
+
+
+/* ============================================================
+   END: NELOY AI VOICE ASSISTANT UNIVERSAL DESIGN SYSTEM
+============================================================ */
