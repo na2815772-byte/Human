@@ -1,29 +1,34 @@
 {
   "app_name": "NELOY AI VOICE ASSISTANT",
   "version": "2.0.0",
+
   "server": {
     "port": 3000,
     "environment": "production",
     "cors_enabled": true,
     "json_limit": "10mb"
   },
+
   "api": {
     "base_path": "/api",
     "chat_endpoint": "/chat",
     "session_endpoint": "/auth/me",
     "logout_endpoint": "/auth/logout"
   },
+
   "ai_providers": {
     "parallel_requests": true,
     "show_separate_results": true,
     "primary_provider": "gemini",
     "fallback_provider": "groq",
+
     "providers": {
       "gemini": {
         "enabled": true,
         "model": "gemini-2.5-flash",
         "display_name": "Google Gemini"
       },
+
       "groq": {
         "enabled": true,
         "model": "llama-3.3-70b-versatile",
@@ -31,6 +36,7 @@
       }
     }
   },
+
   "usage_limit": {
     "enabled": true,
     "lock_duration_hours": 24,
@@ -38,10 +44,12 @@
     "lock_message": "Your usage limit has been reached. Please try again after 24 hours.",
     "reset_after_lock_expires": true
   },
+
   "identity": {
     "enabled": true,
     "provider_required": false,
     "response": "I am an AI, an Artificial Intelligence presented by Neloy.",
+
     "questions": [
       "who are you",
       "what are you",
@@ -50,27 +58,35 @@
       "who created you",
       "who presented you",
       "tell me about yourself",
+      "what is your identity",
+      "are you a robot",
       "তুমি কে",
       "তুমি কি",
       "তুমি কি এআই",
       "তোমাকে কে তৈরি করেছে",
       "তোমার পরিচয় কি",
-      "তুমি কি আর্টিফিশিয়াল ইন্টেলিজেন্স"
+      "তুমি কি আর্টিফিশিয়াল ইন্টেলিজেন্স",
+      "তুমি কি রোবট"
     ]
   },
+
   "response": {
     "default_language": "english",
+
     "supported_languages": [
       "english",
       "bangla",
       "bangla-english"
     ],
+
     "prefer_primary_provider": true,
     "fallback_enabled": true
   },
+
   "security": {
     "api_keys_in_frontend": false,
     "require_authentication": true,
-    "use_environment_variables": true
+    "use_environment_variables": true,
+    "jwt_secret_required": true
   }
 }
