@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#090817">
+  <meta name="description" content="NELOY AI Voice Assistant">
   <title>NELOY AI VOICE ASSISTANT</title>
+
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -19,9 +21,11 @@
     <div id="particles"></div>
   </div>
 
-  <!-- Three Dot Menu -->
+  <!-- Top Navigation -->
   <header class="top-bar">
+
     <div class="menu-container">
+
       <button
         class="menu-button"
         id="menuButton"
@@ -31,11 +35,17 @@
       >⋮</button>
 
       <div class="dropdown-menu" id="dropdownMenu">
+
         <a href="index.html">Home</a>
         <a href="plus.html">Plus / Upgrade</a>
         <a href="help.html">Help Center</a>
-        <button type="button" id="logoutButton">Logout</button>
+
+        <button type="button" id="logoutButton">
+          Logout
+        </button>
+
       </div>
+
     </div>
 
     <div class="top-brand">
@@ -43,67 +53,107 @@
       <span>NELOY AI</span>
     </div>
 
-    <a href="plus.html" class="upgrade-button">✦ Plus</a>
+    <a href="plus.html" class="upgrade-button">
+      ✦ Plus
+    </a>
+
   </header>
 
   <!-- Main Content -->
   <main class="main-container">
 
+    <!-- Welcome Section -->
     <section class="welcome-section">
+
       <div class="logo-icon">
         <span>✦</span>
       </div>
 
       <p class="welcome-label">WELCOME TO</p>
+
       <h1>NELOY <span>AI</span></h1>
 
       <p class="welcome-description">
-        Your intelligent voice assistant. Ask anything and start a conversation.
+        Your intelligent voice assistant.
+        Ask anything and start a conversation.
       </p>
+
     </section>
 
-    <!-- AI Status -->
+    <!-- AI Provider Status -->
     <section class="ai-status-panel">
+
       <div class="status-item">
-        <span class="status-indicator" id="geminiIndicator"></span>
+
+        <span
+          class="status-indicator"
+          id="geminiIndicator"
+        ></span>
+
         <span>Gemini</span>
-        <small id="geminiStatus">Checking...</small>
+
+        <small id="geminiStatus">
+          Checking...
+        </small>
+
       </div>
 
       <div class="status-divider"></div>
 
       <div class="status-item">
-        <span class="status-indicator" id="groqIndicator"></span>
+
+        <span
+          class="status-indicator"
+          id="groqIndicator"
+        ></span>
+
         <span>Groq</span>
-        <small id="groqStatus">Standby</small>
+
+        <small id="groqStatus">
+          Standby
+        </small>
+
       </div>
+
     </section>
 
     <!-- Assistant Visual -->
     <section class="assistant-section">
-      <div class="assistant-visual" id="assistantVisual">
+
+      <div
+        class="assistant-visual"
+        id="assistantVisual"
+      >
+
         <div class="assistant-ring ring-one"></div>
         <div class="assistant-ring ring-two"></div>
         <div class="assistant-ring ring-three"></div>
 
         <div class="assistant-core">
+
           <div class="robot-face">
+
             <span class="robot-eye"></span>
             <span class="robot-eye"></span>
             <span class="robot-mouth"></span>
+
           </div>
+
         </div>
+
       </div>
 
       <p class="assistant-state" id="assistantState">
         Your assistant is ready
       </p>
+
     </section>
 
     <!-- Conversation Panel -->
     <section class="chat-panel">
 
       <div class="chat-header">
+
         <div>
           <h2>AI Conversation</h2>
           <p>Talk or type to NELOY AI</p>
@@ -112,47 +162,69 @@
         <span class="online-badge">
           <span></span> Online
         </span>
+
       </div>
 
-      <!-- User Question -->
+      <!-- Messages -->
       <div class="message-area">
 
+        <!-- User Message -->
         <div class="message user-message">
+
           <div class="message-avatar">YOU</div>
+
           <div class="message-content">
+
             <small>Your Message</small>
-            <p id="userMessage">Your question will appear here.</p>
+
+            <p id="userMessage">
+              Your question will appear here.
+            </p>
+
           </div>
+
         </div>
 
         <!-- Main AI Answer -->
         <div class="message ai-message">
-          <div class="message-avatar ai-avatar">AI</div>
-          <div class="message-content">
-            <small>NELOY AI</small>
-            <p id="aiAnswer">
-              Hello! I am NELOY AI. How can I help you today?
-            </p>
+
+          <div class="message-avatar ai-avatar">
+            AI
           </div>
+
+          <div class="message-content">
+
+            <small>NELOY AI</small>
+
+            <p id="aiAnswer">
+              Hello! I am NELOY AI.
+              How can I help you today?
+            </p>
+
+          </div>
+
         </div>
 
       </div>
 
-      <!-- ======================================
-           SEPARATE MODEL RESULTS
-           ====================================== -->
-
+      <!-- Individual Model Results -->
       <section class="model-results-section">
 
         <div class="model-results-heading">
+
           <h3>AI Model Results</h3>
-          <p>Individual responses from each AI model</p>
+
+          <p>
+            Individual responses from each AI model
+          </p>
+
         </div>
 
-        <!-- GEMINI RESULT -->
+        <!-- Gemini -->
         <div class="model-result-card gemini-result-card">
 
           <div class="model-result-header">
+
             <div>
               <span class="model-name">Gemini</span>
               <small>Google AI</small>
@@ -161,21 +233,27 @@
             <span
               class="model-result-status"
               id="geminiResultStatus"
-            >Waiting</span>
+            >
+              Waiting
+            </span>
+
           </div>
 
           <div class="model-result-content">
+
             <p id="geminiResult">
               Waiting for Gemini response...
             </p>
+
           </div>
 
         </div>
 
-        <!-- GROQ RESULT -->
+        <!-- Groq -->
         <div class="model-result-card groq-result-card">
 
           <div class="model-result-header">
+
             <div>
               <span class="model-name">Groq</span>
               <small>Groq AI</small>
@@ -184,13 +262,18 @@
             <span
               class="model-result-status"
               id="groqResultStatus"
-            >Waiting</span>
+            >
+              Waiting
+            </span>
+
           </div>
 
           <div class="model-result-content">
+
             <p id="groqResult">
               Waiting for Groq response...
             </p>
+
           </div>
 
         </div>
@@ -199,19 +282,32 @@
 
       <!-- Text Input -->
       <div class="input-section">
-        <label for="textInput">Type your question</label>
+
+        <label for="textInput">
+          Type your question
+        </label>
 
         <div class="text-input-wrapper">
+
           <textarea
             id="textInput"
             rows="3"
             placeholder="Write your message here..."
           ></textarea>
+
         </div>
 
-        <button class="submit-button" id="submitButton" type="button">
-          <span>➤</span> Send Message
+        <button
+          class="submit-button"
+          id="submitButton"
+          type="button"
+        >
+
+          <span>➤</span>
+          Send Message
+
         </button>
+
       </div>
 
       <div class="input-divider">
@@ -222,13 +318,16 @@
       <div class="voice-section">
 
         <div class="voice-buttons">
+
           <button
             class="voice-button start-button"
             id="startRecordButton"
             type="button"
           >
+
             <span>🎙️</span>
             <strong>Start Record</strong>
+
           </button>
 
           <button
@@ -237,9 +336,12 @@
             type="button"
             disabled
           >
+
             <span>⏹</span>
             <strong>Stop Record</strong>
+
           </button>
+
         </div>
 
         <button
@@ -251,58 +353,76 @@
           ✦ Process Voice
         </button>
 
-        <div class="recording-status" id="recordingStatus">
+        <div
+          class="recording-status"
+          id="recordingStatus"
+        >
           Press Start Record and speak.
         </div>
 
         <div class="recognized-text">
+
           <small>Recognized Speech</small>
-          <p id="recognizedText">Your spoken words will appear here.</p>
+
+          <p id="recognizedText">
+            Your spoken words will appear here.
+          </p>
+
         </div>
 
       </div>
 
       <!-- Loading -->
-      <div class="loading-area" id="loadingArea" hidden>
+      <div
+        class="loading-area"
+        id="loadingArea"
+        hidden
+      >
+
         <div class="loading-spinner"></div>
+
         <p>NELOY AI is thinking...</p>
+
       </div>
 
-      <!-- Error / Notice -->
-      <div class="notice-message" id="noticeMessage" role="status"></div>
+      <!-- Notice -->
+      <div
+        class="notice-message"
+        id="noticeMessage"
+        role="status"
+        aria-live="polite"
+      ></div>
 
     </section>
 
+    <!-- Footer -->
     <footer class="home-footer">
+
       <p>Powered by NELOY AI</p>
-      <small>Designed to make conversations smarter.</small>
+
+      <small>
+        Designed to make conversations smarter.
+      </small>
+
     </footer>
 
   </main>
 
-  <!-- ==========================================
-       MODEL SWITCH JS
-       ========================================== -->
+  <!-- ======================================
+       EXTERNAL JAVASCRIPT FILES
+       ====================================== -->
 
   <script src="js/model-switch.js"></script>
-
-  <!-- ==========================================
-       USAGE MANAGER JS
-       ========================================== -->
-
   <script src="js/usage-manager.js"></script>
 
-  <!-- ==========================================
-       MAIN JAVASCRIPT
-       ========================================== -->
+  <!-- ======================================
+       MAIN APPLICATION JAVASCRIPT
+       ====================================== -->
 
   <script>
     "use strict";
 
-    // ==========================================
-    // NELOY AI - MAIN CONFIGURATION
-    // ==========================================
-
+    // API CONFIGURATION
     const API = {
       SESSION: "/api/auth/me",
       CHAT: "/api/chat",
@@ -317,19 +437,23 @@
     let recognizedTranscript = "";
     let isRecording = false;
     let isProcessing = false;
+    let isLocked = false;
 
     let answerLanguage =
       localStorage.getItem("answerLanguage") || "english";
 
-    // ==========================================
     // HTML ELEMENTS
-    // ==========================================
+    const menuButton =
+      document.getElementById("menuButton");
 
-    const menuButton = document.getElementById("menuButton");
-    const dropdownMenu = document.getElementById("dropdownMenu");
+    const dropdownMenu =
+      document.getElementById("dropdownMenu");
 
-    const textInput = document.getElementById("textInput");
-    const submitButton = document.getElementById("submitButton");
+    const textInput =
+      document.getElementById("textInput");
+
+    const submitButton =
+      document.getElementById("submitButton");
 
     const startRecordButton =
       document.getElementById("startRecordButton");
@@ -340,8 +464,11 @@
     const processVoiceButton =
       document.getElementById("processVoiceButton");
 
-    const userMessage = document.getElementById("userMessage");
-    const aiAnswer = document.getElementById("aiAnswer");
+    const userMessage =
+      document.getElementById("userMessage");
+
+    const aiAnswer =
+      document.getElementById("aiAnswer");
 
     const recognizedText =
       document.getElementById("recognizedText");
@@ -361,10 +488,7 @@
     const noticeMessage =
       document.getElementById("noticeMessage");
 
-    // ==========================================
     // AUTHENTICATION CHECK
-    // ==========================================
-
     async function checkLogin() {
 
       try {
@@ -412,10 +536,7 @@
 
     }
 
-    // ==========================================
     // MENU
-    // ==========================================
-
     menuButton.addEventListener("click", () => {
 
       const isOpen =
@@ -446,10 +567,7 @@
 
     });
 
-    // ==========================================
     // LOGOUT
-    // ==========================================
-
     document
       .getElementById("logoutButton")
       .addEventListener("click", logout);
@@ -469,16 +587,15 @@
 
       }
 
-      window.speechSynthesis.cancel();
+      if ("speechSynthesis" in window) {
+        window.speechSynthesis.cancel();
+      }
 
       window.location.replace("login.html");
 
     }
 
-    // ==========================================
-    // NOTICE MESSAGE
-    // ==========================================
-
+    // NOTICE
     function showNotice(message, type = "info") {
 
       noticeMessage.textContent = message;
@@ -488,10 +605,7 @@
 
     }
 
-    // ==========================================
     // TEXT TO SPEECH
-    // ==========================================
-
     function speak(text) {
 
       if (!("speechSynthesis" in window)) {
@@ -557,10 +671,7 @@
 
     }
 
-    // ==========================================
-    // MODEL SWITCH HELPERS
-    // ==========================================
-
+    // MODEL RESULTS
     function resetModelResults() {
 
       if (window.ModelSwitch) {
@@ -578,21 +689,12 @@
 
       if (!window.ModelSwitch || !data) return;
 
-      // Expected backend format:
-      // data.results.gemini
-      // data.results.groq
-
       if (data.results) {
-
         ModelSwitch.update(data.results);
-
       }
 
-      // Update provider status separately.
       if (data.provider) {
-
         updateProviderStatus(data.provider);
-
       }
 
     }
@@ -603,8 +705,10 @@
 
       const results = data.results || {};
 
-      if (results.gemini &&
-          results.gemini.status === "error") {
+      if (
+        results.gemini &&
+        results.gemini.status === "error"
+      ) {
 
         ModelSwitch.setError(
           "gemini",
@@ -615,8 +719,10 @@
 
       }
 
-      if (results.groq &&
-          results.groq.status === "error") {
+      if (
+        results.groq &&
+        results.groq.status === "error"
+      ) {
 
         ModelSwitch.setError(
           "groq",
@@ -629,10 +735,7 @@
 
     }
 
-    // ==========================================
-    // USAGE MANAGER INTEGRATION
-    // ==========================================
-
+    // USAGE MANAGER
     function startUsageTracking() {
 
       if (!window.UsageManager) return;
@@ -659,6 +762,16 @@
         ).toLowerCase();
 
         if (
+          status === "quota_exhausted" ||
+          status === "quota exhausted"
+        ) {
+
+          UsageManager.setStatus(
+            provider,
+            "Quota Exhausted"
+          );
+
+        } else if (
           status === "error" ||
           status === "failed"
         ) {
@@ -672,21 +785,10 @@
 
         } else if (
           status === "success" ||
-          status === "completed" ||
-          result.answer
+          status === "completed"
         ) {
 
           UsageManager.recordSuccess(provider);
-
-        } else if (
-          status === "quota_exhausted" ||
-          status === "quota exhausted"
-        ) {
-
-          UsageManager.setStatus(
-            provider,
-            "Quota Exhausted"
-          );
 
         }
 
@@ -694,13 +796,70 @@
 
     }
 
-    // ==========================================
-    // SEND MESSAGE TO AI BACKEND
-    // ==========================================
+    // PROVIDER STATUS
+    function updateProviderStatus(provider) {
 
+      if (!provider) return;
+
+      const geminiStatus =
+        document.getElementById("geminiStatus");
+
+      const groqStatus =
+        document.getElementById("groqStatus");
+
+      const geminiIndicator =
+        document.getElementById("geminiIndicator");
+
+      const groqIndicator =
+        document.getElementById("groqIndicator");
+
+      const activeProvider =
+        String(provider).toLowerCase();
+
+      if (activeProvider.includes("gemini")) {
+
+        geminiStatus.textContent = "Active";
+        groqStatus.textContent = "Standby";
+
+        geminiIndicator.classList.add("active");
+        groqIndicator.classList.remove("active");
+
+      } else if (activeProvider.includes("groq")) {
+
+        geminiStatus.textContent = "Fallback";
+        groqStatus.textContent = "Active";
+
+        geminiIndicator.classList.remove("active");
+        groqIndicator.classList.add("active");
+
+      }
+
+    }
+
+    // LOCK CONTROLS
+    function applyLock(message) {
+
+      isLocked = true;
+
+      textInput.disabled = true;
+      submitButton.disabled = true;
+
+      startRecordButton.disabled = true;
+      stopRecordButton.disabled = true;
+      processVoiceButton.disabled = true;
+
+      aiAnswer.textContent = message;
+
+      showNotice(message, "error");
+
+      speak(message);
+
+    }
+
+    // SEND MESSAGE
     async function sendMessage(message) {
 
-      const question = message.trim();
+      const question = String(message || "").trim();
 
       if (!question) {
 
@@ -713,14 +872,13 @@
 
       }
 
-      if (isProcessing) return;
+      if (isProcessing || isLocked) return;
 
       isProcessing = true;
 
       setControlsDisabled(true);
 
       userMessage.textContent = question;
-
       aiAnswer.textContent = "Thinking...";
 
       loadingArea.hidden = false;
@@ -732,10 +890,7 @@
 
       showNotice("");
 
-      // Reset both model result cards.
       resetModelResults();
-
-      // Start Gemini and Groq usage tracking.
       startUsageTracking();
 
       try {
@@ -752,36 +907,22 @@
           },
 
           body: JSON.stringify({
-
             message: question,
-
             answerLanguage: answerLanguage
-
           })
 
         });
 
         const data = await response.json();
 
-        // ======================================
-        // UPDATE USAGE FOR ALL RESPONSES
-        // ======================================
-
         updateUsageFromResults(data);
 
-        // ======================================
-        // 24-HOUR USAGE LIMIT
-        // ======================================
-
+        // 24-HOUR LOCK
         if (response.status === 429) {
 
           const limitMessage =
             data.message ||
             "Your usage limit has been reached. Please try again after 24 hours.";
-
-          aiAnswer.textContent = limitMessage;
-
-          showNotice(limitMessage, "error");
 
           if (data.results) {
             updateModelResults(data);
@@ -790,23 +931,21 @@
 
           if (data.lockedUntil || data.locked === true) {
 
-            textInput.disabled = true;
-            submitButton.disabled = true;
-            startRecordButton.disabled = true;
-            processVoiceButton.disabled = true;
+            applyLock(limitMessage);
+
+          } else {
+
+            aiAnswer.textContent = limitMessage;
+            showNotice(limitMessage, "error");
+            speak(limitMessage);
 
           }
-
-          speak(limitMessage);
 
           return;
 
         }
 
-        // ======================================
-        // OTHER BACKEND ERRORS
-        // ======================================
-
+        // BACKEND ERRORS
         if (!response.ok) {
 
           if (data.results) {
@@ -815,23 +954,17 @@
           }
 
           throw new Error(
-            data.message || "Unable to get an AI response."
+            data.message ||
+            "Unable to get an AI response."
           );
 
         }
 
-        // ======================================
-        // UPDATE GEMINI AND GROQ RESULTS
-        // ======================================
-
+        // MODEL RESULTS
         updateModelResults(data);
-
         handleModelErrors(data);
 
-        // ======================================
-        // MAIN AI ANSWER
-        // ======================================
-
+        // MAIN ANSWER
         const answer =
           data.answer || data.response;
 
@@ -845,10 +978,8 @@
 
         aiAnswer.textContent = answer;
 
-        // Update provider status.
         updateProviderStatus(data.provider);
 
-        // Speak the main AI response.
         speak(answer);
 
       } catch (error) {
@@ -873,16 +1004,15 @@
 
         isProcessing = false;
 
-        setControlsDisabled(false);
+        if (!isLocked) {
+          setControlsDisabled(false);
+        }
 
       }
 
     }
 
-    // ==========================================
     // TEXT SUBMIT
-    // ==========================================
-
     submitButton.addEventListener("click", () => {
 
       const message = textInput.value.trim();
@@ -904,7 +1034,7 @@
 
     });
 
-    textInput.addEventListener("keydown", (event) => {
+    textInput.addEventListener("keydown", event => {
 
       if (
         event.key === "Enter" &&
@@ -919,10 +1049,7 @@
 
     });
 
-    // ==========================================
     // SPEECH RECOGNITION
-    // ==========================================
-
     const SpeechRecognition =
       window.SpeechRecognition ||
       window.webkitSpeechRecognition;
@@ -932,7 +1059,6 @@
       recognition = new SpeechRecognition();
 
       recognition.continuous = true;
-
       recognition.interimResults = true;
 
       recognition.lang = DEFAULT_LANGUAGE;
@@ -950,17 +1076,14 @@
         assistantVisual.classList.add("recording");
 
         startRecordButton.disabled = true;
-
         stopRecordButton.disabled = false;
-
         processVoiceButton.disabled = true;
 
       };
 
-      recognition.onresult = (event) => {
+      recognition.onresult = event => {
 
         let finalTranscript = "";
-
         let interimTranscript = "";
 
         for (
@@ -973,13 +1096,9 @@
             event.results[i][0].transcript;
 
           if (event.results[i].isFinal) {
-
             finalTranscript += transcript + " ";
-
           } else {
-
             interimTranscript += transcript;
-
           }
 
         }
@@ -987,12 +1106,14 @@
         recognizedTranscript += finalTranscript;
 
         recognizedText.textContent =
-          (recognizedTranscript + interimTranscript).trim() ||
-          "Listening...";
+          (
+            recognizedTranscript +
+            interimTranscript
+          ).trim() || "Listening...";
 
       };
 
-      recognition.onerror = (event) => {
+      recognition.onerror = event => {
 
         recordingStatus.textContent =
           "Microphone error: " + event.error;
@@ -1013,12 +1134,11 @@
         assistantState.textContent =
           "Your assistant is ready";
 
-        startRecordButton.disabled = false;
-
+        startRecordButton.disabled = isLocked;
         stopRecordButton.disabled = true;
 
         processVoiceButton.disabled =
-          !recognizedTranscript.trim();
+          isLocked || !recognizedTranscript.trim();
 
         if (recognizedTranscript.trim()) {
 
@@ -1040,21 +1160,18 @@
         "Speech recognition is not supported. Please use a supported browser.";
 
       startRecordButton.disabled = true;
-
       stopRecordButton.disabled = true;
 
     }
 
-    // ==========================================
     // START RECORD
-    // ==========================================
-
     startRecordButton.addEventListener("click", () => {
 
       if (
         !recognition ||
         isRecording ||
-        isProcessing
+        isProcessing ||
+        isLocked
       ) return;
 
       recognizedTranscript = "";
@@ -1075,6 +1192,8 @@
 
       } catch (error) {
 
+        console.error("Microphone error:", error);
+
         showNotice(
           "Microphone could not start. Please try again.",
           "error"
@@ -1084,10 +1203,7 @@
 
     });
 
-    // ==========================================
     // STOP RECORD
-    // ==========================================
-
     stopRecordButton.addEventListener("click", () => {
 
       if (recognition && isRecording) {
@@ -1101,10 +1217,7 @@
 
     });
 
-    // ==========================================
     // PROCESS VOICE
-    // ==========================================
-
     processVoiceButton.addEventListener("click", () => {
 
       const message = recognizedTranscript.trim();
@@ -1124,14 +1237,12 @@
 
     });
 
-    // ==========================================
     // BUTTON CONTROL
-    // ==========================================
-
     function setControlsDisabled(disabled) {
 
-      submitButton.disabled = disabled;
+      if (isLocked) return;
 
+      submitButton.disabled = disabled;
       textInput.disabled = disabled;
 
       startRecordButton.disabled =
@@ -1145,63 +1256,15 @@
 
     }
 
-    // ==========================================
-    // PROVIDER STATUS
-    // ==========================================
-
-    function updateProviderStatus(provider) {
-
-      const geminiStatus =
-        document.getElementById("geminiStatus");
-
-      const groqStatus =
-        document.getElementById("groqStatus");
-
-      const geminiIndicator =
-        document.getElementById("geminiIndicator");
-
-      const groqIndicator =
-        document.getElementById("groqIndicator");
-
-      if (!provider) return;
-
-      const activeProvider =
-        provider.toLowerCase();
-
-      if (activeProvider.includes("gemini")) {
-
-        geminiStatus.textContent = "Active";
-
-        groqStatus.textContent = "Standby";
-
-        geminiIndicator.classList.add("active");
-
-        groqIndicator.classList.remove("active");
-
-      } else if (activeProvider.includes("groq")) {
-
-        geminiStatus.textContent = "Fallback";
-
-        groqStatus.textContent = "Active";
-
-        geminiIndicator.classList.remove("active");
-
-        groqIndicator.classList.add("active");
-
-      }
-
-    }
-
-    // ==========================================
-    // INITIALIZE
-    // ==========================================
-
+    // CREATE BACKGROUND PARTICLES
     function createParticles() {
 
       const container =
         document.getElementById("particles");
 
       if (!container) return;
+
+      if (container.children.length > 0) return;
 
       for (let i = 0; i < 45; i++) {
 
@@ -1225,18 +1288,17 @@
 
     }
 
+    // INITIALIZE
     function initialize() {
 
       createParticles();
 
       checkLogin();
 
-      // Initialize Usage Manager.
       if (window.UsageManager) {
         UsageManager.init();
       }
 
-      // Welcome voice on first visit after login.
       const shouldWelcome =
         sessionStorage.getItem("neloy_home_welcome") !== "shown";
 
