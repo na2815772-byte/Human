@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090817">
+  <title>NELOY AI VOICE ASSISTANT</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="home-page">
+
+  <!-- Background Effects -->
+  <div class="background-effects">
+    <div class="gradient-orb orb-one"></div>
+    <div class="gradient-orb orb-two"></div>
+    <div class="gradient-orb orb-three"></div>
+    <div class="background-grid"></div>
+    <div id="particles"></div>
+  </div>
+
+  <!-- Three Dot Menu -->
+  <header class="top-bar">
+    <div class="menu-container">
+      <button
+        class="menu-button"
+        id="menuButton"
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false"
+      >⋮</button>
+
+      <div class="dropdown-menu" id="dropdownMenu">
+        <a href="index.html">Home</a>
+        <a href="plus.html">Plus / Upgrade</a>
+        <a href="help.html">Help Center</a>
+        <button type="button" id="logoutButton">Logout</button>
+      </div>
+    </div>
+
+    <div class="top-brand">
+      <span class="brand-dot"></span>
+      <span>NELOY AI</span>
+    </div>
+
+    <a href="plus.html" class="upgrade-button">✦ Plus</a>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-container">
+
+    <section class="welcome-section">
+      <div class="logo-icon">
+        <span>✦</span>
+      </div>
+
+      <p class="welcome-label">WELCOME TO</p>
+      <h1>NELOY <span>AI</span></h1>
+
+      <p class="welcome-description">
+        Your intelligent voice assistant. Ask anything and start a conversation.
+      </p>
+    </section>
+
+    <!-- AI Status -->
+    <section class="ai-status-panel">
+      <div class="status-item">
+        <span class="status-indicator" id="geminiIndicator"></span>
+        <span>Gemini</span>
+        <small id="geminiStatus">Checking...</small>
+      </div>
+
+      <div class="status-divider"></div>
+
+      <div class="status-item">
+        <span class="status-indicator" id="groqIndicator"></span>
+        <span>Groq</span>
+        <small id="groqStatus">Standby</small>
+      </div>
+    </section>
+
+    <!-- Assistant Visual -->
+    <section class="assistant-section">
+      <div class="assistant-visual" id="assistantVisual">
+        <div class="assistant-ring ring-one"></div>
+        <div class="assistant-ring ring-two"></div>
+        <div class="assistant-ring ring-three"></div>
+
+        <div class="assistant-core">
+          <div class="robot-face">
+            <span class="robot-eye"></span>
+            <span class="robot-eye"></span>
+            <span class="robot-mouth"></span>
+          </div>
+        </div>
+      </div>
+
+      <p class="assistant-state" id="assistantState">
+        Your assistant is ready
+      </p>
+    </section>
+
+    <!-- Conversation Panel -->
+    <section class="chat-panel">
+
+      <div class="chat-header">
+        <div>
+          <h2>AI Conversation</h2>
+          <p>Talk or type to NELOY AI</p>
+        </div>
+
+        <span class="online-badge">
+          <span></span> Online
+        </span>
+      </div>
+
+      <!-- User Question -->
+      <div class="message-area">
+        <div class="message user-message">
+          <div class="message-avatar">YOU</div>
+          <div class="message-content">
+            <small>Your Message</small>
+            <p id="userMessage">Your question will appear here.</p>
+          </div>
+        </div>
+
+        <!-- AI Answer -->
+        <div class="message ai-message">
+          <div class="message-avatar ai-avatar">AI</div>
+          <div class="message-content">
+            <small>NELOY AI</small>
+            <p id="aiAnswer">
+              Hello! I am NELOY AI. How can I help you today?
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Text Input -->
+      <div class="input-section">
+        <label for="textInput">Type your question</label>
+
+        <div class="text-input-wrapper">
+          <textarea
+            id="textInput"
+            rows="3"
+            placeholder="Write your message here..."
+          ></textarea>
+        </div>
+
+        <button class="submit-button" id="submitButton" type="button">
+          <span>➤</span> Send Message
+        </button>
+      </div>
+
+      <div class="input-divider">
+        <span>OR USE YOUR VOICE</span>
+      </div>
+
+      <!-- Voice Controls -->
+      <div class="voice-section">
+
+        <div class="voice-buttons">
+          <button
+            class="voice-button start-button"
+            id="startRecordButton"
+            type="button"
+          >
+            <span>🎙️</span>
+            <strong>Start Record</strong>
+          </button>
+
+          <button
+            class="voice-button stop-button"
+            id="stopRecordButton"
+            type="button"
+            disabled
+          >
+            <span>⏹</span>
+            <strong>Stop Record</strong>
+          </button>
+        </div>
+
+        <button
+          class="process-button"
+          id="processVoiceButton"
+          type="button"
+          disabled
+        >
+          ✦ Process Voice
+        </button>
+
+        <div class="recording-status" id="recordingStatus">
+          Press Start Record and speak.
+        </div>
+
+        <div class="recognized-text">
+          <small>Recognized Speech</small>
+          <p id="recognizedText">Your spoken words will appear here.</p>
+        </div>
+
+      </div>
+
+      <!-- Loading -->
+      <div class="loading-area" id="loadingArea" hidden>
+        <div class="loading-spinner"></div>
+        <p>NELOY AI is thinking...</p>
+      </div>
+
+      <!-- Error / Notice -->
+      <div class="notice-message" id="noticeMessage" role="status"></div>
+
+    </section>
+
+    <footer class="home-footer">
+      <p>Powered by NELOY AI</p>
+      <small>Designed to make conversations smarter.</small>
+    </footer>
+
+  </main>
+
+  <script>
+    "use strict";
+
+    // ==========================================
+    // NELOY AI - MAIN CONFIGURATION
+    // ==========================================
+
+    const API = {
+      SESSION: "/api/auth/me",
+      CHAT: "/api/chat",
+      LOGOUT: "/api/auth/logout"
+    };
+
+    const DEFAULT_LANGUAGE = "en-US";
+    const BANGLA_LANGUAGE = "bn-BD";
+    const SPEECH_RATE = 1.2;
+
+    let recognition = null;
+    let recognizedTranscript = "";
+    let isRecording = false;
+    let isProcessing = false;
+
+    let answerLanguage =
+      localStorage.getItem("answerLanguage") || "english";
+
+    // ==========================================
+    // HTML ELEMENTS
+    // ==========================================
+
+    const menuButton = document.getElementById("menuButton");
+    const dropdownMenu = document.getElementById("dropdownMenu");
+
+    const textInput = document.getElementById("textInput");
+    const submitButton = document.getElementById("submitButton");
+
+    const startRecordButton =
+      document.getElementById("startRecordButton");
+
+    const stopRecordButton =
+      document.getElementById("stopRecordButton");
+
+    const processVoiceButton =
+      document.getElementById("processVoiceButton");
+
+    const userMessage = document.getElementById("userMessage");
+    const aiAnswer = document.getElementById("aiAnswer");
+
+    const recognizedText =
+      document.getElementById("recognizedText");
+
+    const recordingStatus =
+      document.getElementById("recordingStatus");
+
+    const assistantState =
+      document.getElementById("assistantState");
+
+    const assistantVisual =
+      document.getElementById("assistantVisual");
+
+    const loadingArea =
+      document.getElementById("loadingArea");
+
+    const noticeMessage =
+      document.getElementById("noticeMessage");
+
+    // ==========================================
+    // AUTHENTICATION CHECK
+    // ==========================================
+
+    async function checkLogin() {
+      try {
+        const response = await fetch(API.SESSION, {
+          method: "GET",
+          credentials: "same-origin",
+          headers: {
+            "Accept": "application/json"
+          }
+        });
+
+        if (!response.ok) {
+          window.location.replace("login.html");
+          return;
+        }
+
+        const data = await response.json();
+
+        if (!data.authenticated) {
+          window.location.replace("login.html");
+          return;
+        }
+
+        // Optional: show the logged-in user's name.
+        if (data.user && data.user.firstName) {
+          const welcome = document.querySelector(".welcome-description");
+          welcome.textContent =
+            `Welcome, ${data.user.firstName}. Your intelligent voice assistant is ready.`;
+        }
+
+      } catch (error) {
+        console.error("Authentication error:", error);
+        showNotice(
+          "Unable to verify your login. Please try again.",
+          "error"
+        );
+      }
+    }
+
+    // ==========================================
+    // MENU
+    // ==========================================
+
+    menuButton.addEventListener("click", () => {
+      const isOpen = dropdownMenu.classList.toggle("show");
+
+      menuButton.setAttribute(
+        "aria-expanded",
+        String(isOpen)
+      );
+    });
+
+    document.addEventListener("click", (event) => {
+      if (
+        !menuButton.contains(event.target) &&
+        !dropdownMenu.contains(event.target)
+      ) {
+        dropdownMenu.classList.remove("show");
+        menuButton.setAttribute("aria-expanded", "false");
+      }
+    });
+
+    // ==========================================
+    // LOGOUT
+    // ==========================================
+
+    document
+      .getElementById("logoutButton")
+      .addEventListener("click", logout);
+
+    async function logout() {
+      try {
+        await fetch(API.LOGOUT, {
+          method: "POST",
+          credentials: "same-origin"
+        });
+      } catch (error) {
+        console.error("Logout error:", error);
+      }
+
+      window.speechSynthesis.cancel();
+      window.location.replace("login.html");
+    }
+
+    // ==========================================
+    // NOTICE MESSAGE
+    // ==========================================
+
+    function showNotice(message, type = "info") {
+      noticeMessage.textContent = message;
+      noticeMessage.className = "notice-message " + type;
+    }
+
+    // ==========================================
+    // TEXT TO SPEECH
+    // ==========================================
+
+    function speak(text) {
+      if (!("speechSynthesis" in window)) {
+        showNotice(
+          "Voice output is not supported by this browser.",
+          "error"
+        );
+        return;
+      }
+
+      const cleanText = String(text)
+        .replace(/<[^>]*>/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+
+      if (!cleanText) return;
+
+      window.speechSynthesis.cancel();
+
+      const utterance = new SpeechSynthesisUtterance(cleanText);
+
+      utterance.lang =
+        answerLanguage === "bangla"
+          ? BANGLA_LANGUAGE
+          : DEFAULT_LANGUAGE;
+
+      utterance.rate = SPEECH_RATE;
+      utterance.pitch = 1;
+      utterance.volume = 1;
+
+      utterance.onstart = () => {
+        assistantState.textContent = "NELOY AI is speaking...";
+        assistantVisual.classList.add("speaking");
+      };
+
+      utterance.onend = () => {
+        assistantState.textContent = "Your assistant is ready";
+        assistantVisual.classList.remove("speaking");
+      };
+
+      utterance.onerror = () => {
+        assistantVisual.classList.remove("speaking");
+        assistantState.textContent = "Your assistant is ready";
+      };
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    // ==========================================
+    // SEND MESSAGE TO AI BACKEND
+    // ==========================================
+
+    async function sendMessage(message) {
+      const question = message.trim();
+
+      if (!question) {
+        showNotice("Please enter or speak a question first.", "error");
+        return;
+      }
+
+      if (isProcessing) return;
+
+      isProcessing = true;
+      setControlsDisabled(true);
+
+      userMessage.textContent = question;
+      aiAnswer.textContent = "Thinking...";
+      loadingArea.hidden = false;
+
+      assistantState.textContent = "NELOY AI is thinking...";
+      assistantVisual.classList.add("thinking");
+
+      showNotice("");
+
+      try {
+        const response = await fetch(API.CHAT, {
+          method: "POST",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify({
+            message: question,
+            answerLanguage: answerLanguage
+          })
+        });
+
+        const data = await response.json();
+
+        if (response.status === 429) {
+          const message =
+            data.message ||
+            "Your usage limit has been reached. Please try again after 24 hours.";
+
+          aiAnswer.textContent = message;
+          showNotice(message, "error");
+          speak(message);
+
+          if (data.lockedUntil) {
+            textInput.disabled = true;
+            submitButton.disabled = true;
+            startRecordButton.disabled = true;
+          }
+
+          return;
+        }
+
+        if (!response.ok) {
+          throw new Error(
+            data.message || "Unable to get an AI response."
+          );
+        }
+
+        const answer = data.answer || data.response;
+
+        if (!answer) {
+          throw new Error("The AI returned an empty response.");
+        }
+
+        aiAnswer.textContent = answer;
+
+        // Update provider status when backend supplies it.
+        updateProviderStatus(data.provider);
+
+        // Always speak the AI response.
+        speak(answer);
+
+      } catch (error) {
+        console.error("AI request error:", error);
+
+        const errorMessage =
+          error.message || "Something went wrong. Please try again.";
+
+        aiAnswer.textContent = errorMessage;
+        showNotice(errorMessage, "error");
+        speak(errorMessage);
+
+      } finally {
+        loadingArea.hidden = true;
+        assistantVisual.classList.remove("thinking");
+        isProcessing = false;
+        setControlsDisabled(false);
+      }
+    }
+
+    // ==========================================
+    // TEXT SUBMIT
+    // ==========================================
+
+    submitButton.addEventListener("click", () => {
+      const message = textInput.value.trim();
+
+      if (!message) {
+        showNotice("Please type your question.", "error");
+        return;
+      }
+
+      sendMessage(message);
+      textInput.value = "";
+    });
+
+    textInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" && !event.shiftKey) {
+        event.preventDefault();
+        submitButton.click();
+      }
+    });
+
+    // ==========================================
+    // SPEECH RECOGNITION
+    // ==========================================
+
+    const SpeechRecognition =
+      window.SpeechRecognition ||
+      window.webkitSpeechRecognition;
+
+    if (SpeechRecognition) {
+      recognition = new SpeechRecognition();
+
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.lang = DEFAULT_LANGUAGE;
+
+      recognition.onstart = () => {
+        isRecording = true;
+
+        recordingStatus.textContent = "Listening... Speak now.";
+        assistantState.textContent = "Listening to your voice...";
+        assistantVisual.classList.add("recording");
+
+        startRecordButton.disabled = true;
+        stopRecordButton.disabled = false;
+        processVoiceButton.disabled = true;
+      };
+
+      recognition.onresult = (event) => {
+        let finalTranscript = "";
+        let interimTranscript = "";
+
+        for (
+          let i = event.resultIndex;
+          i < event.results.length;
+          i++
+        ) {
+          const transcript =
+            event.results[i][0].transcript;
+
+          if (event.results[i].isFinal) {
+            finalTranscript += transcript + " ";
+          } else {
+            interimTranscript += transcript;
+          }
+        }
+
+        recognizedTranscript += finalTranscript;
+
+        recognizedText.textContent =
+          (recognizedTranscript + interimTranscript).trim() ||
+          "Listening...";
+      };
+
+      recognition.onerror = (event) => {
+        recordingStatus.textContent =
+          "Microphone error: " + event.error;
+
+        showNotice(
+          "Speech recognition error: " + event.error,
+          "error"
+        );
+      };
+
+      recognition.onend = () => {
+        isRecording = false;
+
+        assistantVisual.classList.remove("recording");
+        assistantState.textContent = "Your assistant is ready";
+
+        startRecordButton.disabled = false;
+        stopRecordButton.disabled = true;
+
+        processVoiceButton.disabled =
+          !recognizedTranscript.trim();
+
+        if (recognizedTranscript.trim()) {
+          recordingStatus.textContent =
+            "Voice captured. Press Process Voice.";
+        } else {
+          recordingStatus.textContent =
+            "No speech detected. Please try again.";
+        }
+      };
+
+    } else {
+      recordingStatus.textContent =
+        "Speech recognition is not supported. Please use a supported browser.";
+
+      startRecordButton.disabled = true;
+      stopRecordButton.disabled = true;
+    }
+
+    // ==========================================
+    // START RECORD
+    // ==========================================
+
+    startRecordButton.addEventListener("click", () => {
+      if (!recognition || isRecording || isProcessing) return;
+
+      recognizedTranscript = "";
+      recognizedText.textContent = "Listening...";
+      recordingStatus.textContent = "Starting microphone...";
+
+      recognition.lang =
+        answerLanguage === "bangla"
+          ? BANGLA_LANGUAGE
+          : DEFAULT_LANGUAGE;
+
+      try {
+        recognition.start();
+      } catch (error) {
+        showNotice(
+          "Microphone could not start. Please try again.",
+          "error"
+        );
+      }
+    });
+
+    // ==========================================
+    // STOP RECORD
+    // ==========================================
+
+    stopRecordButton.addEventListener("click", () => {
+      if (recognition && isRecording) {
+        recognition.stop();
+        recordingStatus.textContent = "Stopping microphone...";
+      }
+    });
+
+    // ==========================================
+    // PROCESS VOICE
+    // ==========================================
+
+    processVoiceButton.addEventListener("click", () => {
+      const message = recognizedTranscript.trim();
+
+      if (!message) {
+        showNotice("No voice was detected. Please record again.", "error");
+        return;
+      }
+
+      sendMessage(message);
+    });
+
+    // ==========================================
+    // BUTTON CONTROL
+    // ==========================================
+
+    function setControlsDisabled(disabled) {
+      submitButton.disabled = disabled;
+      textInput.disabled = disabled;
+      startRecordButton.disabled =
+        disabled || !recognition || isRecording;
+
+      stopRecordButton.disabled =
+        disabled || !isRecording;
+
+      processVoiceButton.disabled =
+        disabled || !recognizedTranscript.trim();
+    }
+
+    // ==========================================
+    // PROVIDER STATUS
+    // ==========================================
+
+    function updateProviderStatus(provider) {
+      const geminiStatus =
+        document.getElementById("geminiStatus");
+
+      const groqStatus =
+        document.getElementById("groqStatus");
+
+      const geminiIndicator =
+        document.getElementById("geminiIndicator");
+
+      const groqIndicator =
+        document.getElementById("groqIndicator");
+
+      if (!provider) return;
+
+      const activeProvider = provider.toLowerCase();
+
+      if (activeProvider.includes("gemini")) {
+        geminiStatus.textContent = "Active";
+        groqStatus.textContent = "Standby";
+
+        geminiIndicator.classList.add("active");
+        groqIndicator.classList.remove("active");
+
+      } else if (activeProvider.includes("groq")) {
+        geminiStatus.textContent = "Fallback";
+        groqStatus.textContent = "Active";
+
+        geminiIndicator.classList.remove("active");
+        groqIndicator.classList.add("active");
+      }
+    }
+
+    // ==========================================
+    // INITIALIZE
+    // ==========================================
+
+    function createParticles() {
+      const container = document.getElementById("particles");
+
+      if (!container) return;
+
+      for (let i = 0; i < 45; i++) {
+        const particle = document.createElement("span");
+
+        particle.className = "particle";
+        particle.style.left = Math.random() * 100 + "%";
+        particle.style.animationDelay =
+          Math.random() * 10 + "s";
+
+        particle.style.animationDuration =
+          (5 + Math.random() * 10) + "s";
+
+        container.appendChild(particle);
+      }
+    }
+
+    function initialize() {
+      createParticles();
+      checkLogin();
+
+      // Welcome voice on first visit after login.
+      const shouldWelcome =
+        sessionStorage.getItem("neloy_home_welcome") !== "shown";
+
+      if (shouldWelcome) {
+        sessionStorage.setItem("neloy_home_welcome", "shown");
+
+        setTimeout(() => {
+          speak(
+            "Welcome to Neloy's website. It's a pleasure to have you here."
+          );
+        }, 1000);
+      }
+    }
+
+    initialize();
+
+  </script>
+
+</body>
+</html>
